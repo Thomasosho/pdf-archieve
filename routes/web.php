@@ -15,7 +15,9 @@ use App\Http\Controllers\FileController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('file');
 });
 
 Route::resource('file', FileController::class);
+Route::get('type', [FileController::class, 'type']);
+Route::get('date', [FileController::class, 'date']);

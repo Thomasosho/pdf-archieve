@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use DB;
+use Smalot\PdfParser\Parser;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
@@ -14,7 +16,7 @@ class FileController extends Controller
      */
     public function index()
     {
-        //
+        return view('file');
     }
 
     /**
@@ -35,7 +37,77 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $file = $request->file;
+
+        $request->validate([
+            'file' => 'required|unique:files|mimes:doc,pdf,docx,xlsx,docx,ppt,pptx,ods,odt,odp',
+        ]);
+
+        // use of pdf parser to read content from pdf 
+        $fileName = $file->getClientOriginalName();
+
+        if ( File::where('orig_filename', $fileName)->first() ) {
+            // $error = \Illuminate\Validation\ValidationException::withMessages([
+            //      'file' => 'File already exists'
+            // ]);
+            return back()->with('error', 'File already exists');  
+            // throw $error;
+        }
+
+        if ($file->getMimeType() == 'application/pdf') {
+            $pdfParser = new Parser();
+            $pdf = $pdfParser->parseFile($file->path());
+            $content = $pdf->getText();
+        }
+
+        if($request->hasFile('file')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('file')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('file')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('file')->storeAs('public/documents', $fileNameToStore);
+        }
+
+        $upload_file = new File;
+        $upload_file->orig_filename = $fileName;
+        $upload_file->mime_type = $file->getMimeType();
+        $upload_file->filesize = $file->getSize();
+        // $upload_file->content = $content;
+        $upload_file->extension = $extension;
+        $upload_file->class = $request->input('class');
+        $upload_file->date = $request->input('date');
+        $upload_file->account = $request->input('account');
+        $upload_file->person = $request->input('person');
+        $upload_file->keyword = $request->input('keyword');
+        $upload_file->description = $request->input('description');
+        $upload_file->file = $fileNameToStore;
+        $upload_file->save();
+        return back()->with('success', 'File saved');   
+    }
+
+    public function type(File $file)
+    {
+        $sort = File::latest()->get()->groupBy(function($item)
+        {
+            return $item->extension;
+        });
+
+        return view('type', compact('sort'));
+    }
+
+    public function date(File $file)
+    {
+        $sort = File::latest()->get()->groupBy(function($item)
+        {
+            return $item->date;
+        });
+
+        return view('date', compact('sort'));
     }
 
     /**
