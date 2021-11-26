@@ -28,10 +28,10 @@
                         <li><a href="/date" class="nav-link px-2 {{ (request()->is('date')) ? 'text-secondary' : 'text-white' }}">Sort by Date</a></li>
                     </ul>
 
-                    <!-- <form class="col-12 col-lg-auto mb-10 mb-lg-8 me-lg-10" action="/search" method="post">
+                    <form class="col-12 col-lg-auto mb-10 mb-lg-8 me-lg-10" action="/search" method="post">
                         @csrf
                         <input type="search" class="form-control form-control-dark" name="q" placeholder="Search by responsible person, class, date, keyword, description and so on..." aria-label="Search">
-                    </form> -->
+                    </form>
                 </div>
             </div>
         </header>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-md-8 px-5">
                         <form action="{{ route('file.store') }}" enctype="multipart/form-data" method="POST">
-                            {{ csrf_field() }}
+                            {{ csrf_field() }} @csrf
                             <div class="row g-3 py-2">
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control" name="class" placeholder="Class" aria-label="Class">
