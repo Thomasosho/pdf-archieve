@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 
 Route::resource('file', FileController::class);
+Route::post('store', [FileController::class, 'store']);
 Route::get('type', [FileController::class, 'type']);
 Route::get('date', [FileController::class, 'date']);
 

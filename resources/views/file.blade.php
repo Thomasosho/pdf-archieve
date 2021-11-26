@@ -44,7 +44,7 @@
                         <p>Upload Document File</p>
                     </div>
                     <div class="col-md-8 px-5">
-                        <form action="/file/store" enctype="multipart/form-data" method="POST">
+                        <form action="/store" enctype="multipart/form-data" method="POST">
                             {{ csrf_field() }} @csrf
                             <div class="row g-3 py-2">
                                 <div class="col-sm-4">
