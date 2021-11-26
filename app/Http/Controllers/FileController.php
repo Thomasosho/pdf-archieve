@@ -126,7 +126,8 @@ class FileController extends Controller
             ->orWhere('keyword', 'LIKE', '%' . $q . '%' )
             ->orWhere('extension', 'LIKE', '%' . $q . '%' )
             ->orWhere('description', 'LIKE', '%' . $q . '%' )
-            ->orWhere('content', 'LIKE', '%' . $q . '%' )->get();
+            ->orWhere('content', 'LIKE', '%' . $q . '%' )
+            ->get();
 
         return view('search', compact('search'));
     }
