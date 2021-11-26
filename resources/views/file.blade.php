@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-md-8 px-5">
                         <form action="{{ route('file.store') }}" enctype="multipart/form-data" method="POST">
-                            @csrf
+                            {{ csrf_field() }}
                             <div class="row g-3 py-2">
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control" name="class" placeholder="Class" aria-label="Class">
