@@ -59,6 +59,9 @@ class FileController extends Controller
             $pdf = $pdfParser->parseFile($file->path());
             $content = $pdf->getText();
         }
+        else {
+            $content = 'null';
+        }
 
         if($request->hasFile('file')){
             // Get filename with the extension
@@ -77,7 +80,7 @@ class FileController extends Controller
         $upload_file->orig_filename = $fileName;
         $upload_file->mime_type = $file->getMimeType();
         $upload_file->filesize = $file->getSize();
-        // $upload_file->content = $content;
+        $upload_file->content = $content;
         $upload_file->extension = $extension;
         $upload_file->class = $request->input('class');
         $upload_file->date = $request->input('date');
