@@ -21,3 +21,5 @@ Route::get('/', function () {
 Route::resource('file', FileController::class);
 Route::get('type', [FileController::class, 'type']);
 Route::get('date', [FileController::class, 'date']);
+
+Route::post('search', [FileController::class, 'search']);

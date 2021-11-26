@@ -22,14 +22,15 @@
                         <em>The Archiever</em>
                     </a>
 
-                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <ul class="nav col-12 col-lg-8 me-lg-8 mb-2 justify-content-center mb-md-0">
                         <li><a href="/file" class="nav-link px-2 {{ (request()->is('file')) ? 'text-secondary' : 'text-white' }}">Upload</a></li>
                         <li><a href="/type" class="nav-link px-2 {{ (request()->is('type')) ? 'text-secondary' : 'text-white' }}">Sort by File Type</a></li>
                         <li><a href="/date" class="nav-link px-2 {{ (request()->is('date')) ? 'text-secondary' : 'text-white' }}">Sort by Date</a></li>
                     </ul>
 
-                    <form class="col-12 col-lg-auto mb-10 mb-lg-8 me-lg-10">
-                        <input type="search" class="form-control form-control-dark" placeholder="Search by responsible person, class, date, keyword, description and so on..." aria-label="Search">
+                    <form class="col-12 col-lg-auto mb-10 mb-lg-8 me-lg-10" action="/search" method="post">
+                        @csrf
+                        <input type="search" class="form-control form-control-dark" name="q" placeholder="Search by responsible person, class, date, keyword, description and so on..." aria-label="Search">
                     </form>
                 </div>
             </div>

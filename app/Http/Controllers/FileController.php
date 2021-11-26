@@ -110,6 +110,24 @@ class FileController extends Controller
         return view('date', compact('sort'));
     }
 
+    public function search(Request $request)
+    {
+        $q = $request->get ( 'q' );
+
+        $search = File::where('orig_filename', 'LIKE', '%' . $q . '%' )
+            ->orWhere('file', 'LIKE', '%' . $q . '%' )
+            ->orWhere('class', 'LIKE', '%' . $q . '%' )
+            ->orWhere('date', 'LIKE', '%' . $q . '%' )
+            ->orWhere('account', 'LIKE', '%' . $q . '%' )
+            ->orWhere('person', 'LIKE', '%' . $q . '%' )
+            ->orWhere('keyword', 'LIKE', '%' . $q . '%' )
+            ->orWhere('extension', 'LIKE', '%' . $q . '%' )
+            ->orWhere('description', 'LIKE', '%' . $q . '%' )
+            ->orWhere('content', 'LIKE', '%' . $q . '%' )->get();
+
+        return view('search', compact('search'));
+    }
+
     /**
      * Display the specified resource.
      *

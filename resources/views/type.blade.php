@@ -13,6 +13,12 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         <!-- end toast -->
+
+        <style>
+            p {
+                margin-bottom: 0;
+            }
+        </style>
     </head>
     <body>
         <header class="p-3 bg-dark text-white">
@@ -22,14 +28,15 @@
                         <em>The Archiever</em>
                     </a>
 
-                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <ul class="nav col-12 col-lg-8 me-lg-8 mb-2 justify-content-center mb-md-0">
                         <li><a href="/file" class="nav-link px-2 {{ (request()->is('file')) ? 'text-secondary' : 'text-white' }}">Upload</a></li>
                         <li><a href="/type" class="nav-link px-2 {{ (request()->is('type')) ? 'text-secondary' : 'text-white' }}">Sort by File Type</a></li>
                         <li><a href="/date" class="nav-link px-2 {{ (request()->is('date')) ? 'text-secondary' : 'text-white' }}">Sort by Date</a></li>
                     </ul>
 
-                    <form class="col-12 col-lg-auto mb-10 mb-lg-8 me-lg-10">
-                        <input type="search" class="form-control form-control-dark" placeholder="Search by responsible person, class, date, keyword, description and so on..." aria-label="Search">
+                    <form class="col-12 col-lg-auto mb-10 mb-lg-8 me-lg-10" action="/search" method="post">
+                        @csrf
+                        <input type="search" class="form-control form-control-dark" name="q" placeholder="Search by responsible person, class, date, keyword, description and so on..." aria-label="Search">
                     </form>
                 </div>
             </div>
@@ -38,41 +45,26 @@
         <section>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 p-5">
+                    <div class="col-md-8 py-3 px-5">
                         <h2>Sample Demonstration</h2>
-                        <p>Upload Document File</p>
+                        <p>Sort by date</p>
                     </div>
                     <div class="col-md-8 px-5">
-                        <form action="{{ route('file.store') }}" enctype="multipart/form-data" method="POST">
-                            @csrf
-                            <div class="row g-3 py-2">
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="class" placeholder="Class" aria-label="Class">
-                                </div>
-                                <div class="col-sm">
-                                    <input type="date" class="form-control" name="date" placeholder="Date" aria-label="Date">
-                                </div>
-                                <div class="col-sm">
-                                    <input type="text" class="form-control" name="account" placeholder="Account" aria-label="Account">
-                                </div>
-                            </div>
-                            <div class="row g-3 py-2">
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="person" placeholder="Person Responsible" aria-label="Person Responsible">
-                                </div>
-                                <div class="col-sm">
-                                    <input type="text" class="form-control" name="keyword" placeholder="keywords seperated by commas" aria-label="keywords seperated by commas">
-                                </div>
-                                <div class="col-sm">
-                                    <input type="text" class="form-control" name="description" placeholder="Description" aria-label="Description">
-                                </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <input type="file" name="file" accept=".doc,.docx,.pdf,.ppt,.pptx,.ods,.odt,.odp,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="form-control" id="inputGroupFile02">
-                                <label class="input-group-text" for="inputGroupFile02">Upload</label>
-                            </div>
-                            <button class="form-control" type="submit">submit</button>
-                        </form>
+                        <h4>Archive</h4>
+                        <ul>
+                            @foreach($sort as $extension => $items )
+                            <li>
+                                <p style="font-weight:bold; font-style:itallic;">{{$extension}} </p>
+                                <ul>
+                                    @foreach ($items as $item) 
+                                        <li>
+                                            {{$item->orig_filename}} <em style="font-weight:bold;">{{$item->date}}</em>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>
