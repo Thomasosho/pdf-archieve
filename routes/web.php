@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('file');
 });
 
-Route::resource('file', FileController::class, 'https');
+Route::resource('file', FileController::class);
 Route::get('type', [FileController::class, 'type']);
 Route::get('date', [FileController::class, 'date']);
 
