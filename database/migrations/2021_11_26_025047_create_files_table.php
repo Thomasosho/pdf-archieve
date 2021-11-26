@@ -15,6 +15,12 @@ class CreateFilesTable extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
+            $table->string('class');
+            $table->string('date');
+            $table->string('account');
+            $table->string('person');
+            $table->text('keywords');
+            $table->longText('description');
             $table->timestamps();
         });
     }
