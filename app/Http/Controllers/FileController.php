@@ -16,7 +16,14 @@ class FileController extends Controller
      */
     public function index()
     {
-        return view('file');
+        if($request->has('q')){
+            $searchs = File::search($request->q)
+                ->paginate(7);
+        }else{
+            $searchs = File::paginate(7);
+        }
+
+        return view('file', compact('searchs'));
     }
 
     /**
@@ -100,7 +107,14 @@ class FileController extends Controller
             return $item->extension;
         });
 
-        return view('type', compact('sort'));
+        if($request->has('q')){
+            $searchs = File::search($request->q)
+                ->paginate(7);
+        }else{
+            $searchs = File::paginate(7);
+        }
+
+        return view('type', compact('sort', 'searchs'));
     }
 
     public function date(File $file)
@@ -110,7 +124,14 @@ class FileController extends Controller
             return $item->date;
         });
 
-        return view('date', compact('sort'));
+        if($request->has('q')){
+            $searchs = File::search($request->q)
+                ->paginate(7);
+        }else{
+            $searchs = File::paginate(7);
+        }
+
+        return view('date', compact('sort', 'searchs'));
     }
 
     public function search(Request $request)
