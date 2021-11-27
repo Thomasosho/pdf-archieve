@@ -14,7 +14,7 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if($request->has('q')){
             $searchs = File::search($request->q)
@@ -100,7 +100,7 @@ class FileController extends Controller
         return back()->with('success', 'File saved');   
     }
 
-    public function type(File $file)
+    public function type(File $file, Request $request)
     {
         $sort = File::latest()->get()->groupBy(function($item)
         {
@@ -117,7 +117,7 @@ class FileController extends Controller
         return view('type', compact('sort', 'searchs'));
     }
 
-    public function date(File $file)
+    public function date(File $file, Request $request)
     {
         $sort = File::latest()->get()->groupBy(function($item)
         {
