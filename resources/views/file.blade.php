@@ -23,7 +23,7 @@
                     </a>
 
                     <ul class="nav col-12 col-lg-8 me-lg-8 mb-2 justify-content-center mb-md-0">
-                        <li><a href="/file" class="nav-link px-2 {{ (request()->is('file')) ? 'text-secondary' : 'text-white' }}">Upload</a></li>
+                        <li><a href="/" class="nav-link px-2 {{ (request()->is('/')) ? 'text-secondary' : 'text-white' }}">Upload</a></li>
                         <li><a href="/type" class="nav-link px-2 {{ (request()->is('type')) ? 'text-secondary' : 'text-white' }}">Sort by File Type</a></li>
                         <li><a href="/date" class="nav-link px-2 {{ (request()->is('date')) ? 'text-secondary' : 'text-white' }}">Sort by Date</a></li>
                     </ul>

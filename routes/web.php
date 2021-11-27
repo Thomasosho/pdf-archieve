@@ -14,11 +14,11 @@ use App\Http\Controllers\FileController;
 |
 */
 
-Route::get('/', function () {
-    return view('file');
-});
+// Route::get('/', function () {
+//     return view('file');
+// });
 
-Route::resource('file', FileController::class);
+Route::resource('/', FileController::class);
 Route::post('store', [FileController::class, 'store']);
 Route::get('type', [FileController::class, 'type']);
 Route::get('date', [FileController::class, 'date']);
