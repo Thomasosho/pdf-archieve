@@ -43,7 +43,7 @@
                         <h2>Sample Demonstration</h2>
                         <p>Upload Document File</p>
                     </div>
-                    <div class="col-md-8 px-5">
+                    <div class="col-md-7 px-5">
                         <form action="/store" enctype="multipart/form-data" method="POST">
                             {{ csrf_field() }} @csrf
                             <div class="row g-3 py-2">
@@ -75,7 +75,7 @@
                             <button class="form-control" type="submit">submit</button>
                         </form>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <table class="table text-center">
                             <thead>
                                 <th>#Id</th>
