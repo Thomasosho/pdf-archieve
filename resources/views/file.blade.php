@@ -32,29 +32,6 @@
                         @csrf
                         <input type="search" class="form-control form-control-dark" name="q" placeholder="Search by responsible person, class, date, keyword, description and so on..." aria-label="Search">
                     </form>
-                    <table class="table text-center">
-                        <thead>
-                            <th>#Id</th>
-                            <th>Name</th>
-                            <th>Date</th>
-                        </thead>
-                        <tbody>
-                            @if($searchs->count())
-                                @foreach($searchs as $key => $s)
-                                    <tr>
-                                        <td>{{ ++$key }}</td>
-                                        <td>{{$s->orig_filename}}</td>
-                                        <td>{{$s->date}}</td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="4">There are no data.</td>
-                                </tr>
-                            @endif
-                        </tbody>
-                    </table>
-                    {{ $searchs->links() }}
                 </div>
             </div>
         </header>
@@ -62,6 +39,31 @@
         <section>
             <div class="container">
                 <div class="row">
+                    <div class="col-md-12 p-3">
+                        <table class="table text-center">
+                            <thead>
+                                <th>#Id</th>
+                                <th>Name</th>
+                                <th>Date</th>
+                            </thead>
+                            <tbody>
+                                @if($searchs->count())
+                                    @foreach($searchs as $key => $s)
+                                        <tr>
+                                            <td>{{ ++$key }}</td>
+                                            <td>{{$s->orig_filename}}</td>
+                                            <td>{{$s->date}}</td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="4">There are no data.</td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                        {{ $searchs->links() }}
+                    </div>
                     <div class="col-md-8 p-5">
                         <h2>Sample Demonstration</h2>
                         <p>Upload Document File</p>

@@ -16,6 +16,6 @@ class File extends Model
      */
     public function searchableAs()
     {
-        return 'file_index';
+        return 'file';
     }
 }
