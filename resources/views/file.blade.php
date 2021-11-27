@@ -75,7 +75,7 @@
                             <button class="form-control" type="submit">submit</button>
                         </form>
                     </div>
-                    <div class="col-md-8 px-5">
+                    <div class="col-md-4">
                         <table class="table text-center">
                             <thead>
                                 <th>#Id</th>
