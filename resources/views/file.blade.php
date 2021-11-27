@@ -28,33 +28,33 @@
                         <li><a href="/date" class="nav-link px-2 {{ (request()->is('date')) ? 'text-secondary' : 'text-white' }}">Sort by Date</a></li>
                     </ul>
 
-                    <form class="col-12 col-lg-auto mb-10 mb-lg-8 me-lg-10" action="/search" method="post">
+                    <form class="col-12 col-lg-auto mb-10 mb-lg-8 me-lg-10" action="/search" method="get">
                         @csrf
                         <input type="search" class="form-control form-control-dark" name="q" placeholder="Search by responsible person, class, date, keyword, description and so on..." aria-label="Search">
                     </form>
                     <table class="table text-center">
-                    <thead>
-                        <th>#Id</th>
-                        <th>Name</th>
-                        <th>Date</th>
-                    </thead>
-                    <tbody>
-                        @if($searchs->count())
-                            @foreach($searchs as $key => $s)
+                        <thead>
+                            <th>#Id</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                        </thead>
+                        <tbody>
+                            @if($searchs->count())
+                                @foreach($searchs as $key => $s)
+                                    <tr>
+                                        <td>{{ ++$key }}</td>
+                                        <td>{{$s->orig_filename}}</td>
+                                        <td>{{$s->date}}</td>
+                                    </tr>
+                                @endforeach
+                            @else
                                 <tr>
-                                    <td>{{ ++$key }}</td>
-                                    <td>{{$s->orig_filename}}</td>
-                                    <td>{{$s->date}}</td>
+                                    <td colspan="4">There are no data.</td>
                                 </tr>
-                            @endforeach
-                        @else
-                            <tr>
-                                <td colspan="4">There are no data.</td>
-                            </tr>
-                        @endif
-                    </tbody>
-                </table>
-                {{ $searchs->links() }}
+                            @endif
+                        </tbody>
+                    </table>
+                    {{ $searchs->links() }}
                 </div>
             </div>
         </header>
