@@ -117,19 +117,26 @@ class FileController extends Controller
     {
         $q = $request->get ( 'q' );
 
-        $search = File::where('orig_filename', 'LIKE', '%' . $q . '%' )
-            ->orWhere('file', 'LIKE', '%' . $q . '%' )
-            ->orWhere('class', 'LIKE', '%' . $q . '%' )
-            ->orWhere('date', 'LIKE', '%' . $q . '%' )
-            ->orWhere('account', 'LIKE', '%' . $q . '%' )
-            ->orWhere('person', 'LIKE', '%' . $q . '%' )
-            ->orWhere('keyword', 'LIKE', '%' . $q . '%' )
-            ->orWhere('extension', 'LIKE', '%' . $q . '%' )
-            ->orWhere('description', 'LIKE', '%' . $q . '%' )
-            ->orWhere('content', 'LIKE', '%' . $q . '%' )
-            ->get();
+        if($request->has('q')){
+            $searchs = File::search($request->q)
+                ->paginate(7);
+        }else{
+            $searchs = File::paginate(7);
+        }
 
-        return view('search', compact('search'));
+        // $search = File::where('orig_filename', 'LIKE', '%' . $q . '%' )
+        //     ->orWhere('file', 'LIKE', '%' . $q . '%' )
+        //     ->orWhere('class', 'LIKE', '%' . $q . '%' )
+        //     ->orWhere('date', 'LIKE', '%' . $q . '%' )
+        //     ->orWhere('account', 'LIKE', '%' . $q . '%' )
+        //     ->orWhere('person', 'LIKE', '%' . $q . '%' )
+        //     ->orWhere('keyword', 'LIKE', '%' . $q . '%' )
+        //     ->orWhere('extension', 'LIKE', '%' . $q . '%' )
+        //     ->orWhere('description', 'LIKE', '%' . $q . '%' )
+        //     ->orWhere('content', 'LIKE', '%' . $q . '%' )
+        //     ->get();
+
+        return view('search', compact('searchs'));
     }
 
     /**
