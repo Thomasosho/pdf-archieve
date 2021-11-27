@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-md-8 px-5">
                         <ul>
-                            @foreach($search as $s)
+                            @foreach($searchs as $s)
                             <li>
                                 {{$s->orig_filename}} <em style="font-weight:bold;">{{$s->date}}</em>
                             </li>
