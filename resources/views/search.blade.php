@@ -72,7 +72,6 @@
                                 @endif
                             </tbody>
                         </table>
-                        {{ $searchs->links() }}
                     </div>
                 </div>
             </div>
