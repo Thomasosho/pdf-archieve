@@ -14,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = Category::all();
+        return view ('category.index', compact('category'));
     }
 
     /**
@@ -35,7 +36,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $category = new Category;
+        $category->name = $request->input('name');
+        $category->save();
+
+        return back()->with('success', 'saved successfully');
     }
 
     /**
@@ -44,9 +53,11 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        // display all files in said category
+        $category = Category::find($id);
+        return view('category.show', compact('category'));
     }
 
     /**
@@ -57,7 +68,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        // 
     }
 
     /**
@@ -67,9 +78,17 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $category = Category::find($id);
+        $category->name = $request->input('name');
+        $category->save();
+
+        return back()->with('success', 'updated successfully');
     }
 
     /**
@@ -80,6 +99,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return back()->with('success', 'deleted successfully');
     }
 }
