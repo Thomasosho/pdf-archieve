@@ -22,14 +22,23 @@
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
+    <style>
+        .navbar-light .navbar-brand {
+            #ffffff !important;
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+            #ffffff !important;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="background-color:#4b5320 !important;">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img src="{{ asset('image/army.png') }}" alt="Nigerian Army" style="width:25%">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="{{ asset('image/army.png') }}" alt="Nigerian Army" style="width:8%">
+                    {{ config('app.name', 'Army') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
