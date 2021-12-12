@@ -14,7 +14,7 @@ class AddCategoryIdToFilesTable extends Migration
     public function up()
     {
         Schema::table('files', function (Blueprint $table) {
-            $table->string('file')->nullable()->after('date');
+            $table->string('category_id')->nullable()->after('date');
         });
     }
 
