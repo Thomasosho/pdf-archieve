@@ -25,3 +25,6 @@ Route::get('date', [FileController::class, 'date']);
 
 Route::post('search', [FileController::class, 'search']);
 Route::get('/search', [FileController::class, 'search'])->name('files');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
