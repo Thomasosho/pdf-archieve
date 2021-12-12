@@ -14,6 +14,19 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        // $this->middleware('permission:/|type|date', ['only' => ['index']]);
+        //  $this->middleware('permission:product-create', ['only' => ['create','store']]);
+        //  $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
+        //  $this->middleware('permission:product-delete', ['only' => ['destroy']]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         if($request->has('q')){
