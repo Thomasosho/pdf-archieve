@@ -24,11 +24,11 @@
 
     <style>
         .navbar-light .navbar-brand {
-            #ffffff !important;
+            color: #ffffff !important;
         }
 
         .navbar-light .navbar-nav .nav-link {
-            #ffffff !important;
+            color: #ffffff !important;
         }
     </style>
 </head>
