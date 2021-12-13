@@ -132,7 +132,7 @@ class FileController extends Controller
             $path = $request->file('file')->storeAs('public/documents', $fileNameToStore);
         }
 
-        dd($fileNameToStore);
+        // dd($fileNameToStore);
 
         $upload_file = new File;
         $upload_file->orig_filename = $fileName;
