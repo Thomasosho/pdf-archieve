@@ -27,11 +27,6 @@ class RedirectIfAuthenticated
             }
         }
 
-        if (auth()->user()->role->name == "Admin") {
-            return '/users';
-        }
-        return '/';
-
         return $next($request);
     }
 }
