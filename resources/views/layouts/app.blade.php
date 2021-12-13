@@ -86,10 +86,10 @@
                             <li><a class="nav-link {{ (request()->is('roles')) ? 'text-secondary' : 'text-white' }}" href="{{ route('roles.index') }}">Manage Role</a></li>
                         @endhasrole
                         @hasrole('User')
-                            <li><a class="nav-link {{ (request()->is('category')) ? 'text-secondary' : 'text-white' }}" href="{{ route('category.index') }}">Categories</a></li>
+                            <li><a class="nav-link {{ (request()->is('category')) ? 'text-secondary' : 'text-white' }}" href="{{ route('category.index') }}">Files</a></li>
                             <li><a href="/" class="nav-link {{ (request()->is('/')) ? 'text-secondary' : 'text-white' }}">Upload</a></li>
-                            <li><a href="/type" class="nav-link {{ (request()->is('type')) ? 'text-secondary' : 'text-white' }}">Sort by File Type</a></li>
-                            <li><a href="/date" class="nav-link {{ (request()->is('date')) ? 'text-secondary' : 'text-white' }}">Sort by Date</a></li>
+                            <!-- <li><a href="/type" class="nav-link {{ (request()->is('type')) ? 'text-secondary' : 'text-white' }}">Sort by File Type</a></li>
+                            <li><a href="/date" class="nav-link {{ (request()->is('date')) ? 'text-secondary' : 'text-white' }}">Sort by Date</a></li> -->
                             <form class="col-12 col-lg-auto mb-10 mb-lg-8 me-lg-10 px-2" action="/search" method="post">
                                 @csrf
                                 <input type="search" class="form-control form-control-dark" name="q" placeholder="Search by responsible person, class, date, keyword, description and so on..." aria-label="Search">

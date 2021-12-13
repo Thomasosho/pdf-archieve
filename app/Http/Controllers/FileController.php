@@ -16,10 +16,10 @@ class FileController extends Controller
      */
     function __construct()
     {
-        // $this->middleware('permission:/|type|date', ['only' => ['index']]);
-        //  $this->middleware('permission:product-create', ['only' => ['create','store']]);
-        //  $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
-        //  $this->middleware('permission:product-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:file-list', ['only' => ['index']]);
+        $this->middleware('permission:file-create', ['only' => ['create','store']]);
+        $this->middleware('permission:file-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:file-delete', ['only' => ['destroy']]);
     }
 
     /**

@@ -21,6 +21,23 @@
                             <div class="col-sm">
                                 <input type="text" class="form-control" name="account" placeholder="Account" aria-label="Account">
                             </div>
+                            <div class="col-sm">
+                                <select name="category" class="form-control" id="">
+                                    <option dissbled selected>--select category--</option>
+                                    @foreach($category as $cat)
+                                    <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-sm">
+                                <select name="privacy" class="form-control" id="">
+                                    <option value="all" selected>--select privacy--</option>
+                                    @foreach($category as $cat)
+                                    <option value="all">All</option>
+                                    <option value="me">Me</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="row g-3 py-2">
                             <div class="col-sm-4">
@@ -41,10 +58,14 @@
                     </form>
                 </div>
                 <div class="col-md-5">
+                    <h3>Recent Uploads</h3>
                     <table class="table text-center">
                         <thead>
                             <th>#Id</th>
                             <th>Name</th>
+                            <th>Category</th>
+                            <th>File Type</th>
+                            <th>Privacy</th>
                             <th>Date</th>
                         </thead>
                         <tbody>
@@ -53,7 +74,9 @@
                                     <tr>
                                         <td>{{ ++$key }}</td>
                                         <td>{{$s->orig_filename}}</td>
-                                        <td>{{$s->date}}</td>
+                                        <td>{{$s->orig_filename}}</td>
+                                        <td>{{$s->privacy}}</td>
+                                        <td>{{$s->date->diffForHumans()}}</td>
                                     </tr>
                                 @endforeach
                             @else
@@ -63,7 +86,6 @@
                             @endif
                         </tbody>
                     </table>
-                    {{ $searchs->links() }}
                 </div>
             </div>
         </div>
