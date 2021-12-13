@@ -15,13 +15,13 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    function __construct()
-    {
-        $this->middleware('permission:file-list', ['only' => ['index']]);
-        $this->middleware('permission:file-create', ['only' => ['create','store']]);
-        $this->middleware('permission:file-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:file-delete', ['only' => ['destroy']]);
-    }
+    // function __construct()
+    // {
+    //     // $this->middleware('permission:file-list', ['only' => ['index']]);
+    //     // $this->middleware('permission:file-create', ['only' => ['create','store']]);
+    //     // $this->middleware('permission:file-edit', ['only' => ['edit','update']]);
+    //     // $this->middleware('permission:file-delete', ['only' => ['destroy']]);
+    // }
 
     /**
      * Display a listing of the resource.
@@ -132,7 +132,7 @@ class FileController extends Controller
             $path = $request->file('file')->storeAs('public/documents', $fileNameToStore);
         }
 
-        // dd($fileNameToStore);
+        dd($fileNameToStore);
 
         $upload_file = new File;
         $upload_file->orig_filename = $fileName;
