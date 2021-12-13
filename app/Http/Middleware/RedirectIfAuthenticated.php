@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
                 if (auth()->user()->hasRole('Admin')) {
                     return redirect(RouteServiceProvider::Admin);
                 }
-                else {
+                elseif (auth()->user()->hasRole('User')) {
                     return redirect(RouteServiceProvider::HOME);
                 }
             }
