@@ -15,13 +15,13 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    function __construct()
-    {
-        $this->middleware('permission:file-list', ['only' => ['index']]);
-        $this->middleware('permission:file-create', ['only' => ['create','store']]);
-        $this->middleware('permission:file-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:file-delete', ['only' => ['destroy']]);
-    }
+    // function __construct()
+    // {
+    //     $this->middleware('permission:file-list', ['only' => ['index']]);
+    //     $this->middleware('permission:file-create', ['only' => ['create','store']]);
+    //     $this->middleware('permission:file-edit', ['only' => ['edit','update']]);
+    //     $this->middleware('permission:file-delete', ['only' => ['destroy']]);
+    // }
 
     /**
      * Display a listing of the resource.
@@ -101,22 +101,24 @@ class FileController extends Controller
             $content = 'null';
         }
 
-        if ($request->file('file')->getClientOriginalExtension() == 'DOCX'||'docx') {
-            $zip = zip_open($file);
+        if ($request->file('file')->getClientOriginalExtension() != 'pdf') {
+            if ($request->file('file')->getClientOriginalExtension() == 'DOCX'||'docx') {
+                $zip = zip_open($file);
 
-            if (!$zip || is_numeric($zip)) return false;
+                if (!$zip || is_numeric($zip)) return false;
 
-            while ($zip_entry = zip_read($zip)) {
+                while ($zip_entry = zip_read($zip)) {
 
-                if (zip_entry_open($zip, $zip_entry) == FALSE) continue;
+                    if (zip_entry_open($zip, $zip_entry) == FALSE) continue;
 
-                if (zip_entry_name($zip_entry) != "word/document.xml") continue;
+                    if (zip_entry_name($zip_entry) != "word/document.xml") continue;
 
-                $content .= zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-                zip_entry_close($zip_entry);
-            } // end while
+                    $content .= zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+                    zip_entry_close($zip_entry);
+                } // end while
 
-            zip_close($zip);
+                zip_close($zip);
+            }
         }
 
         if($request->hasFile('file')){
@@ -131,8 +133,6 @@ class FileController extends Controller
             // Upload Image
             $path = $request->file('file')->storeAs('public/documents', $fileNameToStore);
         }
-
-        dd($fileNameToStore);
 
         $upload_file = new File;
         $upload_file->orig_filename = $fileName;
