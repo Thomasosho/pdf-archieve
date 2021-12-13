@@ -9,7 +9,7 @@
                 <p>Add Category</p>
             </div>
             <div class="col-md-7 px-5">
-                <form action="/category/store" enctype="multipart/form-data" method="POST">
+                <form action="/category" enctype="multipart/form-data" method="POST">
                     {{ csrf_field() }}
                     <div class="row g-3 py-2">
                         <div class="col-sm">
