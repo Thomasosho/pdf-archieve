@@ -23,10 +23,10 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                if (auth()->user()->hasRole('Admin')) {
+                if (auth()->user()->hasRole('User')) {
                     return redirect()->intended('/users');
                 }
-                elseif (auth()->user()->hasRole('User')) {
+                elseif (auth()->user()->hasRole('Admin')) {
                     return redirect(RouteServiceProvider::HOME);
                 }
             }
