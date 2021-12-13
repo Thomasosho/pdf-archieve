@@ -42,6 +42,23 @@ class FileController extends Controller
         return view('file', compact('searchs'));
     }
 
+    public function file(Request $request)
+    {
+        $sort = File::latest()->get()->groupBy(function($item)
+        {
+            return $item->date;
+        });
+
+        if($request->has('q')){
+            $searchs = File::search($request->q)
+                ->paginate(7);
+        }else{
+            $searchs = File::paginate(7);
+        }
+
+        return view('file-index', compact('sort'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
