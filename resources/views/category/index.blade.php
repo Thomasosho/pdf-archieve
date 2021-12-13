@@ -32,7 +32,7 @@
                                 <tr>
                                     <td>{{ ++$key }}</td>
                                     <td>{{$s->name}}</td>
-                                    <td>{{$s->created_at}}</td>
+                                    <td>{{$s->created_at->diffForHumans()}}</td>
                                 </tr>
                             @endforeach
                         @else
