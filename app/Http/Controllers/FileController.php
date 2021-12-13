@@ -37,12 +37,10 @@ class FileController extends Controller
             $searchs = File::paginate(7);
         }
 
-        // $category = Category::all();
-
         return view('file', compact('searchs'));
     }
 
-    public function file(Request $request)
+    public function fil(Request $request)
     {
         $sort = File::latest()->get()->groupBy(function($item)
         {

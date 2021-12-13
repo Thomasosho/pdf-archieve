@@ -25,7 +25,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('/', FileController::class);
-    Route::post('store-file', [FileController::class, 'store']);
+    Route::post('file-create', [FileController::class, 'store']);
     Route::get('type', [FileController::class, 'type']);
     Route::get('date', [FileController::class, 'date']);
     Route::get('files', [FileController::class, 'file']);
