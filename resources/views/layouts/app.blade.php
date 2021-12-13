@@ -36,6 +36,7 @@
 
         .navbar-expand-md .navbar-nav .nav-link {
             padding-left: 0 !important;
+            width: max-content !important;
         }
     </style>
 
