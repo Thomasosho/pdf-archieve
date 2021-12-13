@@ -57,7 +57,7 @@
                                         <td>{{ ++$key }}</td>
                                         <td>{{$s->orig_filename}}</td>
                                         <td>{{$s->extension}}</td>
-                                        <td>{{$s->date->diffForHumans()}}</td>
+                                        <td>{{$s->date->diffForHumans() ?? ''}}</td>
                                     </tr>
                                 @endforeach
                             @else
