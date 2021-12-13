@@ -132,6 +132,8 @@ class FileController extends Controller
             $path = $request->file('file')->storeAs('public/documents', $fileNameToStore);
         }
 
+        dd($fileNameToStore);
+
         $upload_file = new File;
         $upload_file->orig_filename = $fileName;
         $upload_file->mime_type = $file->getMimeType();
