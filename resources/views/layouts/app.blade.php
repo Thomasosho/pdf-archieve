@@ -90,7 +90,7 @@
                             <li><a href="/type" class="nav-link {{ (request()->is('type')) ? 'text-secondary' : 'text-white' }}">Sort by File Type</a></li>
                             <li><a href="/date" class="nav-link {{ (request()->is('date')) ? 'text-secondary' : 'text-white' }}">Sort by Date</a></li>
                         @endhasrole
-                            <form class="col-12 col-lg-auto mb-10 mb-lg-8 me-lg-10" action="/search" method="post">
+                            <form class="col-12 col-lg-auto mb-10 mb-lg-8 me-lg-10 px-2" action="/search" method="post">
                                 @csrf
                                 <input type="search" class="form-control form-control-dark" name="q" placeholder="Search by responsible person, class, date, keyword, description and so on..." aria-label="Search">
                             </form>
