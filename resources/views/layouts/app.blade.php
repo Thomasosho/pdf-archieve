@@ -35,6 +35,13 @@
             color: #ffffff !important;
         }
     </style>
+
+    <!-- toastr -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <!-- end toast -->
 </head>
 <body>
     <div id="app">
@@ -71,12 +78,19 @@
                             @endif -->
                         @else
                         @hasrole('Admin')
-                            <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
-                            <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
+                            <li><a class="nav-link {{ (request()->is('users')) ? 'text-secondary' : 'text-white' }}" href="{{ route('users.index') }}">Manage Users</a></li>
+                            <li><a class="nav-link {{ (request()->is('roles')) ? 'text-secondary' : 'text-white' }}" href="{{ route('roles.index') }}">Manage Role</a></li>
                         @endhasrole
                         @hasrole('User')
-                            <li><a class="nav-link" href="{{ route('category.index') }}">Categories</a></li>
+                            <li><a class="nav-link {{ (request()->is('category')) ? 'text-secondary' : 'text-white' }}" href="{{ route('category.index') }}">Categories</a></li>
+                            <li><a href="/" class="nav-link {{ (request()->is('/')) ? 'text-secondary' : 'text-white' }}">Upload</a></li>
+                            <li><a href="/type" class="nav-link {{ (request()->is('type')) ? 'text-secondary' : 'text-white' }}">Sort by File Type</a></li>
+                            <li><a href="/date" class="nav-link {{ (request()->is('date')) ? 'text-secondary' : 'text-white' }}">Sort by Date</a></li>
                         @endhasrole
+                            <form class="col-12 col-lg-auto mb-10 mb-lg-8 me-lg-10" action="/search" method="post">
+                                @csrf
+                                <input type="search" class="form-control form-control-dark" name="q" placeholder="Search by responsible person, class, date, keyword, description and so on..." aria-label="Search">
+                            </form>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -104,5 +118,63 @@
             @yield('content')
         </main>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> 
+    <!-- pop up -->
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+    <script>
+        @if(Session::has('success'))
+            toastr.options =
+            {
+            "closeButton" : true,
+            "progressBar" : true
+            }
+                toastr.success("{{ session('success') }}");
+        @endif
+        @if(Session::has('error'))
+            toastr.options =
+            {
+            "closeButton" : true,
+            "progressBar" : true
+            }
+                toastr.error("{{ session('error') }}");
+        @endif
+        @if(Session::has('info'))
+            toastr.options =
+            {
+            "closeButton" : true,
+            "progressBar" : true
+            }
+                toastr.info("{{ session('info') }}");
+        @endif
+        @if(Session::has('warning'))
+            toastr.options =
+            {
+                "closeButton" : true,
+                "progressBar" : true
+            }
+                    toastr.warning("{{ session('warning') }}");
+        @endif
+    </script>
 </body>
 </html>
