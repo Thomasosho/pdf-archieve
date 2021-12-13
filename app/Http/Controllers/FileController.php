@@ -146,8 +146,6 @@ class FileController extends Controller
         $upload_file->person = $request->input('person');
         $upload_file->keyword = $request->input('keyword');
         $upload_file->description = $request->input('description');
-        // $upload_file->category_id = $request->input('category');
-        // $upload_file->privacy = $request->input('privacy');
         $upload_file->file = $fileNameToStore;
         $upload_file->save();
         return back()->with('success', 'File saved');   
