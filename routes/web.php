@@ -24,7 +24,7 @@ use App\Http\Controllers\CategoryController;
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::resource('/', [FileController::class, 'index']);
+    Route::get('/', [FileController::class, 'index']);
     Route::post('store', [FileController::class, 'store']);
     Route::get('type', [FileController::class, 'type']);
     Route::get('date', [FileController::class, 'date']);
