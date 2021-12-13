@@ -29,6 +29,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('type', [FileController::class, 'type']);
     Route::get('date', [FileController::class, 'date']);
     Route::get('files', [FileController::class, 'file']);
+    // file actions
+    Route::post('update/{id}', [FileController::class, 'update']);
+    Route::get('show-file/{id}', [FileController::class, 'show']);
+    Route::get('edit-file/{id}', [FileController::class, 'edit']);
+    Route::get('delete/{id}', [FileController::class, 'delete']);
 
     Route::post('search', [FileController::class, 'search']);
     Route::get('/search', [FileController::class, 'search'])->name('files');
