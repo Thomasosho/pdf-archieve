@@ -21,7 +21,7 @@ class RedirectIfAuthenticated
     {
         $guards = empty($guards) ? [null] : $guards;
 
-        if (auth()->user()->hasAnyRole('Admin')) {
+        if (auth()->user()->role->name == "Admin") {
             return '/users';
         }
         return '/';
