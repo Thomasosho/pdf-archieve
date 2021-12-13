@@ -13,7 +13,7 @@
                     {{ csrf_field() }} @csrf
                     <div class="row g-3 py-2">
                         <div class="col-sm">
-                            <input type="text" class="form-control" name="class" placeholder="Class" aria-label="Category Name">
+                            <input type="text" class="form-control" name="name" placeholder="Category Name" aria-label="Category Name">
                         </div>
                     </div>
                     <button class="form-control" type="submit">create</button>
