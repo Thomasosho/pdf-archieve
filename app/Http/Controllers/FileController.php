@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use App\Models\Category;
 use DB;
 use Smalot\PdfParser\Parser;
 use Illuminate\Http\Request;
@@ -35,6 +36,8 @@ class FileController extends Controller
         }else{
             $searchs = File::paginate(7);
         }
+
+        // $category = Category::all();
 
         return view('file', compact('searchs'));
     }
@@ -126,6 +129,8 @@ class FileController extends Controller
         $upload_file->person = $request->input('person');
         $upload_file->keyword = $request->input('keyword');
         $upload_file->description = $request->input('description');
+        // $upload_file->category_id = $request->input('category');
+        // $upload_file->privacy = $request->input('privacy');
         $upload_file->file = $fileNameToStore;
         $upload_file->save();
         return back()->with('success', 'File saved');   
@@ -199,7 +204,7 @@ class FileController extends Controller
      */
     public function show(File $file)
     {
-        //
+        return view('show', compact('file'));
     }
 
     /**
@@ -210,7 +215,7 @@ class FileController extends Controller
      */
     public function edit(File $file)
     {
-        //
+        return view('edit', compact('file'));
     }
 
     /**
@@ -220,9 +225,103 @@ class FileController extends Controller
      * @param  \App\Models\File  $file
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, File $file)
+    public function update(Request $request, $id)
     {
-        //
+        $file = $request->file;
+
+        $request->validate([
+            'file' => 'required|unique:files|mimes:doc,pdf,docx,xlsx,docx,ppt,pptx,ods,odt,odp',
+        ]);
+
+        // use of pdf parser to read content from pdf 
+        $fileName = $file->getClientOriginalName();
+
+        if ( File::where('orig_filename', $fileName)->first() ) {
+            // $error = \Illuminate\Validation\ValidationException::withMessages([
+            //      'file' => 'File already exists'
+            // ]);
+            return back()->with('error', 'File already exists');  
+            // throw $error;
+        }
+
+        if ($file->getMimeType() == 'application/pdf') {
+            $pdfParser = new Parser();
+            $pdf = $pdfParser->parseFile($file->path());
+            $content = $pdf->getText();
+        }
+        else {
+            $content = 'null';
+        }
+
+        if ($request->file('file')->getClientOriginalExtension() == 'DOCX'||'docx') {
+            $zip = zip_open($file);
+
+            if (!$zip || is_numeric($zip)) return false;
+
+            while ($zip_entry = zip_read($zip)) {
+
+                if (zip_entry_open($zip, $zip_entry) == FALSE) continue;
+
+                if (zip_entry_name($zip_entry) != "word/document.xml") continue;
+
+                $content .= zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+                zip_entry_close($zip_entry);
+            } // end while
+
+            zip_close($zip);
+        }
+
+        if($request->hasFile('file')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('file')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('file')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('file')->storeAs('public/documents', $fileNameToStore);
+        }
+
+        if ($fileName == NULL) {
+            $upload_file = File::find($id);
+            // $upload_file->orig_filename = $fileName;
+            // $upload_file->mime_type = $file->getMimeType();
+            // $upload_file->filesize = $file->getSize();
+            // $upload_file->content = $content;
+            // $upload_file->extension = $extension;
+            $upload_file->class = $request->input('class');
+            $upload_file->date = $request->input('date');
+            $upload_file->account = $request->input('account');
+            $upload_file->person = $request->input('person');
+            $upload_file->keyword = $request->input('keyword');
+            $upload_file->description = $request->input('description');
+            // $upload_file->category_id = $request->input('category');
+            // $upload_file->privacy = $request->input('privacy');
+            // $upload_file->file = $fileNameToStore;
+            $upload_file->save();
+            return back()->with('success', 'File saved');
+        }
+        else {
+            $upload_file = File::find($id);
+            $upload_file->orig_filename = $fileName;
+            $upload_file->mime_type = $file->getMimeType();
+            $upload_file->filesize = $file->getSize();
+            $upload_file->content = $content;
+            $upload_file->extension = $extension;
+            $upload_file->class = $request->input('class');
+            $upload_file->date = $request->input('date');
+            $upload_file->account = $request->input('account');
+            $upload_file->person = $request->input('person');
+            $upload_file->keyword = $request->input('keyword');
+            $upload_file->description = $request->input('description');
+            // $upload_file->category_id = $request->input('category');
+            // $upload_file->privacy = $request->input('privacy');
+            $upload_file->file = $fileNameToStore;
+            $upload_file->save();
+            return back()->with('success', 'File saved');
+        }
     }
 
     /**
@@ -231,8 +330,10 @@ class FileController extends Controller
      * @param  \App\Models\File  $file
      * @return \Illuminate\Http\Response
      */
-    public function destroy(File $file)
+    public function destroy($id)
     {
-        //
+        $file = File::find($id);
+        $file->delete();
+        return back()->with('success', 'deleted successfully');
     }
 }

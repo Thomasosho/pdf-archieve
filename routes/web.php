@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('store', [FileController::class, 'store']);
     Route::get('type', [FileController::class, 'type']);
     Route::get('date', [FileController::class, 'date']);
+    Route::get('files', [FileController::class, 'file']);
 
     Route::post('search', [FileController::class, 'search']);
     Route::get('/search', [FileController::class, 'search'])->name('files');
