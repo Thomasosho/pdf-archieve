@@ -21,16 +21,16 @@ class RedirectIfAuthenticated
     {
         $guards = empty($guards) ? [null] : $guards;
 
-        if (auth()->user()->role->name == "Admin") {
-            return '/users';
-        }
-        return '/';
-
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 return redirect(RouteServiceProvider::HOME);
             }
         }
+
+        if (auth()->user()->role->name == "Admin") {
+            return '/users';
+        }
+        return '/';
 
         return $next($request);
     }
