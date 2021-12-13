@@ -58,7 +58,11 @@
                     </form>
                 </div>
                 <div class="col-md-5">
-                    <h3>Recent Uploads</h3>
+                    <h3>Recent Uploads
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Launch demo modal
+                        </button>
+                    </h3>
                     <table class="table text-center">
                         <thead>
                             <th>#Id</th>
