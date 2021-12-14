@@ -216,14 +216,14 @@ class FileController extends Controller
         //     $searchs = File::paginate(7);
         // }
 
-        $searchs = File::where('orig_filename', 'ilike', '%' . $q . '%' )
-            ->orWhere('file', 'ilike', '%' . $q . '%' )
-            ->orWhere('date', 'ilike', '%' . $q . '%' )
-            ->orWhere('person', 'ilike', '%' . $q . '%' )
-            ->orWhere('keyword', 'ilike', '%' . $q . '%' )
-            ->orWhere('extension', 'ilike', '%' . $q . '%' )
-            ->orWhere('description', 'ilike', '%' . $q . '%' )
-            ->orWhere('content', 'ilike', '%' . $q . '%' )
+        $searchs = File::where('orig_filename', 'like', '%' . $q . '%' )
+            ->orWhere('file', 'like', '%' . $q . '%' )
+            ->orWhere('date', 'like', '%' . $q . '%' )
+            ->orWhere('person', 'like', '%' . $q . '%' )
+            ->orWhere('keyword', 'like', '%' . $q . '%' )
+            ->orWhere('extension', 'like', '%' . $q . '%' )
+            ->orWhere('description', 'like', '%' . $q . '%' )
+            ->orWhere('content', 'like', '%' . $q . '%' )
             ->get();
 
         return view('search', compact('searchs'));
