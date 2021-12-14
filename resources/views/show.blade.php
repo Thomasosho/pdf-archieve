@@ -44,7 +44,7 @@
                 @if($file->extension == 'pdf'||$file->extension == 'PDF')
                     <h5>Preview <span>{{$file->file}}</span></h5>
                     <iframe
-                        src="http://the-archiever.herokuapp.com/storage/documents/{{$file->file}}"
+                        src="https://the-archiever.herokuapp.com/app/storage/app/public/documents/{{$file->file}}"
                         frameBorder="0"
                         scrolling="auto"
                         width="100%"
