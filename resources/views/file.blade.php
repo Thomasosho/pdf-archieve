@@ -51,7 +51,7 @@
                                         <td>{{$s->extension}}</td>
                                         <td>{{$s->created_at->diffForHumans()}}</td>
                                         <td>
-                                            <a href="/download/{{$s->file}}" download="{{$s->file}}" class="px-2 decorate" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
+                                            <a href="/download/{{$s->file}}" class="px-2 decorate" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
                                                 <i class="fas fa-file-download"></i> Download
                                             </a>
                                             <a href="{{ route('file.show',$s->id)}}" class="px-2 decorate" style="float:left;" data-toggle="tooltip" data-original-title="Edit">

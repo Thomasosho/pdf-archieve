@@ -165,7 +165,7 @@ class FileController extends Controller
         // //PDF file is stored under project/public/download/info.pdf
         // $file= $doc->file;
         // return Response::download($file);
-        return response()->download(Storage::disk('app/public')->path("documents".DIRECTORY_SEPARATOR.$file));
+        return response()->download(Storage::disk('public')->path("documents".DIRECTORY_SEPARATOR.$file));
     }
 
     public function type(File $file, Request $request)
