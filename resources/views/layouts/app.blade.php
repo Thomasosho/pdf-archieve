@@ -16,6 +16,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
     <!-- Icon -->
     <link rel="icon" type="image/png" href="{{asset('image/army.png')}}" sizes="16x16">
@@ -33,11 +34,27 @@
         .navbar-light .navbar-nav .nav-link {
             color: #ffffff !important;
         }
+        
+        a {
+            color: #4b5320 !important;
+        }
 
-        /* .navbar-expand-md .navbar-nav .nav-link {
-            padding-left: 0 !important;
-            width: max-content !important;
-        } */
+        .decorate {
+            text-decoration: none !important;
+        }
+
+        .inline {
+            display: -webkit-inline-box !important;
+        }
+
+        .navbar-expand-md .navbar-collapse {
+            width: inherit;
+        }
+
+        .btn-primary {
+            background-color: #4b5320 !important;
+            border-color: #6c757d !important;
+        }
     </style>
 
     <!-- toastr -->
@@ -60,10 +77,6 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -86,13 +99,14 @@
                             <li><a class="nav-link mx-2 btn btn-secondary {{ (request()->is('roles')) ? 'btn btn-secondary-outline' : 'text-white' }}" href="{{ route('roles.index') }}">Manage Role</a></li>
                         @endhasrole
                         @hasrole('User')
-                            <li><a href="/" class="nav-link mx-2 btn btn-secondary {{ (request()->is('/')) ? 'btn btn-secondary-outline' : 'text-white' }}">Upload</a></li>
-                            <li><a class="nav-link mx-2 btn btn-secondary {{ (request()->is('files')) ? 'btn btn-secondary-outline' : 'text-white' }}" href="/files">Files</a></li>
+                            <li><a href="/" class="nav-link mx-2 btn btn-secondary {{ (request()->is('/')) ? 'btn btn-secondary-outline' : 'text-white' }}">Add Document</a></li>
+                            <li><a class="nav-link mx-2 btn btn-secondary {{ (request()->is('files')) ? 'btn btn-secondary-outline' : 'text-white' }}" href="/files">Archive</a></li>
                             <!-- <li><a href="/type" class="nav-link {{ (request()->is('type')) ? 'text-secondary' : 'text-white' }}">Sort by File Type</a></li>
                             <li><a href="/date" class="nav-link {{ (request()->is('date')) ? 'text-secondary' : 'text-white' }}">Sort by Date</a></li> -->
-                            <form class="col-12 col-lg-auto mb-10 mb-lg-8 me-lg-10 px-2" action="/search" method="post">
+                            <form class="col-12 col-lg-auto inline mb-10 mb-lg-8 mx-5 me-lg-10 px-2" action="/search" method="post">
                                 @csrf
                                 <input type="search" class="form-control form-control-dark" name="q" placeholder="Search by responsible person, class, date, keyword, description and so on..." aria-label="Search">
+                                <button class="btn btn-primary mt-1" type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         @endhasrole
                             <li class="nav-item dropdown">

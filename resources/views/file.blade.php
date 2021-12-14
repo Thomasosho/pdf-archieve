@@ -12,23 +12,14 @@
                     <form action="/store" enctype="multipart/form-data" method="POST">
                         {{ csrf_field() }}
                         <div class="row g-3 py-2">
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" name="class" placeholder="Class" aria-label="Class">
-                            </div>
                             <div class="col-sm">
                                 <input type="date" class="form-control" name="date" placeholder="Date" aria-label="Date">
                             </div>
                             <div class="col-sm">
-                                <input type="text" class="form-control" name="account" placeholder="Account" aria-label="Account">
+                                <input type="text" class="form-control" name="keyword" placeholder="Keywords" aria-label="keywords seperated by commas">
                             </div>
                         </div>
                         <div class="row g-3 py-2">
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" name="person" placeholder="Person Responsible" aria-label="Person Responsible">
-                            </div>
-                            <div class="col-sm">
-                                <input type="text" class="form-control" name="keyword" placeholder="keywords seperated by commas" aria-label="keywords seperated by commas">
-                            </div>
                             <div class="col-sm">
                                 <input type="text" class="form-control" name="description" placeholder="Description" aria-label="Description">
                             </div>
@@ -60,19 +51,19 @@
                                         <td>{{$s->extension}}</td>
                                         <td>{{$s->created_at->diffForHumans()}}</td>
                                         <td>
-                                            <a href="/download/{{$s->file}}" download="{{$s->file}}" class="px-2" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
-                                                <i class="fas fa-pencil-alt text-inverse mr-2"></i> Download
+                                            <a href="/download/{{$s->file}}" download="{{$s->file}}" class="px-2 decorate" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
+                                                <i class="fas fa-file-download"></i> Download
                                             </a>
-                                            <a href="{{ route('file.show',$s->id)}}" class="px-2" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
-                                                <i class="fas fa-pencil-alt text-inverse mr-2"></i> View
+                                            <a href="{{ route('file.show',$s->id)}}" class="px-2 decorate" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
+                                                <i class="fas fa-binoculars"></i> View
                                             </a>
-                                            <a href="{{ route('file.edit',$s->id)}}" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
-                                                <i class="fas fa-pencil-alt text-inverse mr-2"></i> Edit
+                                            <a class="decorate" href="{{ route('file.edit',$s->id)}}" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
+                                                <i class="fas fa-spell-check"></i> Edit
                                             </a>
-                                            <form action="{{ route('file.destroy', $s->id)}}" style="margin-left : 18px;float:left;"  method="post" data-toggle="tooltip" data-original-title="Delete">
+                                            <form class="decorate" action="{{ route('file.destroy', $s->id)}}" style="margin-left : 18px;float:left;"  method="post" data-toggle="tooltip" data-original-title="Delete">
                                                 {{ csrf_field() }}
                                                 @method('DELETE')    
-                                                <button style="border:0px;" class="fas fa-window-close text-danger" type="submit"> Delete</button> 
+                                                <button style="border:0px;" class="fas fa-trash text-danger" type="submit"> Delete</button> 
                                             </form>
                                         </td>
                                     </tr>

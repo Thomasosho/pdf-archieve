@@ -23,24 +23,16 @@
         <br>
         <h3>{{$file->file}}</h3>
         <div class="row g-3 py-2">
-            <div class="col-sm-4">
-                <label for="class">Class</label>
-                <input type="text" class="form-control" value="{{$file->class}}" aria-label="Class" readonly>
-            </div>
             <div class="col-sm">
                 <label for="date">Date</label>
                 <input type="text" class="form-control" value="{{$file->date}}" aria-label="Date" readonly>
             </div>
-            <div class="col-sm">
-                <label for="account">Account</label>
-                <input type="text" class="form-control" value="{{$file->account}}" aria-label="Account" readonly>
-            </div>
-        </div>
-        <div class="row g-3 py-2">
             <div class="col-sm-4">
                 <label for="person">Person Responsible</label>
                 <input type="text" class="form-control" value="{{$file->person}}" aria-label="Person Responsible" readonly>
             </div>
+        </div>
+        <div class="row g-3 py-2">
             <div class="col-sm">
                 <label for="description">Description</label>
                 <input type="text" class="form-control" value="{{$file->description}}" aria-label="Description" readonly>
@@ -52,7 +44,7 @@
                 @if($file->extension == 'pdf'||$file->extension == 'PDF')
                     <h5>Preview <span>{{$file->file}}</span></h5>
                     <iframe
-                        src="/storage/documents/{{$file->file}}"
+                        src="http://the-archiever.herokuapp.com/storage/documents/{{$file->file}}"
                         frameBorder="0"
                         scrolling="auto"
                         width="100%"

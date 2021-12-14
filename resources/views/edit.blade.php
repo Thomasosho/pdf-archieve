@@ -21,28 +21,16 @@
             {{ csrf_field() }}
             @method('PATCH')
             <div class="row g-3 py-2">
-                <div class="col-sm-4">
-                    <label for="class">Class</label>
-                    <input type="text" class="form-control" name="class" value="{{$file->class}}" aria-label="Class">
-                </div>
                 <div class="col-sm">
                     <label for="class">Date</label>
                     <input type="date" class="form-control" name="date" value="{{$file->date}}" aria-label="Date">
                 </div>
                 <div class="col-sm">
-                    <label for="class">Account</label>
-                    <input type="text" class="form-control" name="account" value="{{$file->account}}" aria-label="Account">
-                </div>
-            </div>
-            <div class="row g-3 py-2">
-                <div class="col-sm-4">
-                    <label for="class">Person</label>
-                    <input type="text" class="form-control" name="person" value="{{$file->person}}" aria-label="Person Responsible">
-                </div>
-                <div class="col-sm">
                     <label for="class">Keyword</label>
                     <input type="text" class="form-control" name="keyword" value="{{$file->keyword}}" aria-label="keywords seperated by commas">
                 </div>
+            </div>
+            <div class="row g-3 py-2">
                 <div class="col-sm">
                     <label for="class">Description</label>
                     <input type="text" class="form-control" name="description" value="{{$file->description}}" aria-label="Description">

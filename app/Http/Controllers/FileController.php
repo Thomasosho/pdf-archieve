@@ -9,6 +9,7 @@ use Response;
 use Illuminate\Support\Facades\Storage;
 use Smalot\PdfParser\Parser;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class FileController extends Controller
 {
@@ -34,9 +35,9 @@ class FileController extends Controller
     {
         if($request->has('q')){
             $searchs = File::search($request->q)
-                ->paginate(7);
+                ->paginate(3);
         }else{
-            $searchs = File::paginate(7);
+            $searchs = File::paginate(3);
         }
 
         return view('file', compact('searchs'));
@@ -136,16 +137,21 @@ class FileController extends Controller
             $path = $request->file('file')->storeAs('public/documents', $fileNameToStore);
         }
 
+        $date = Carbon::now();
+
         $upload_file = new File;
         $upload_file->orig_filename = $fileName;
         $upload_file->mime_type = $file->getMimeType();
         $upload_file->filesize = $file->getSize();
         $upload_file->content = $content;
         $upload_file->extension = $extension;
-        $upload_file->class = $request->input('class');
-        $upload_file->date = $request->input('date');
-        $upload_file->account = $request->input('account');
-        $upload_file->person = $request->input('person');
+        if ($request->has('date')) {
+            $upload_file->date = $request->input('date');
+        }
+        else {
+            $upload_file->date = $date->toDateString();
+        }
+        $upload_file->person = auth()->user()->name;
         $upload_file->keyword = $request->input('keyword');
         $upload_file->description = $request->input('description');
         $upload_file->file = $fileNameToStore;
@@ -209,9 +215,7 @@ class FileController extends Controller
 
         $searchs = File::where('orig_filename', 'ilike', '%' . $q . '%' )
             ->orWhere('file', 'ilike', '%' . $q . '%' )
-            ->orWhere('class', 'ilike', '%' . $q . '%' )
             ->orWhere('date', 'ilike', '%' . $q . '%' )
-            ->orWhere('account', 'ilike', '%' . $q . '%' )
             ->orWhere('person', 'ilike', '%' . $q . '%' )
             ->orWhere('keyword', 'ilike', '%' . $q . '%' )
             ->orWhere('extension', 'ilike', '%' . $q . '%' )
@@ -312,6 +316,7 @@ class FileController extends Controller
                 // Upload Image
                 $path = $request->file('file')->storeAs('public/documents', $fileNameToStore);
             }
+            $date = Carbon::now();
 
             $upload_file = File::find($id);
             $upload_file->orig_filename = $fileName;
@@ -319,10 +324,13 @@ class FileController extends Controller
             $upload_file->filesize = $file->getSize();
             $upload_file->content = $content;
             $upload_file->extension = $extension;
-            $upload_file->class = $request->input('class');
-            $upload_file->date = $request->input('date');
-            $upload_file->account = $request->input('account');
-            $upload_file->person = $request->input('person');
+            if ($request->has('date')) {
+                $upload_file->date = $request->input('date');
+            }
+            else {
+                $upload_file->date = $date->toDateString();
+            }
+            $upload_file->person = auth()->user()->name;
             $upload_file->keyword = $request->input('keyword');
             $upload_file->description = $request->input('description');
             // $upload_file->category_id = $request->input('category');
@@ -333,9 +341,15 @@ class FileController extends Controller
 
         }
         else {
+            $date = Carbon::now();
             $upload_file = File::find($id);
             $upload_file->class = $request->input('class');
-            $upload_file->date = $request->input('date');
+            if ($request->has('date')) {
+                $upload_file->date = $request->input('date');
+            }
+            else {
+                $upload_file->date = $date->toDateString();
+            }
             $upload_file->account = $request->input('account');
             $upload_file->person = $request->input('person');
             $upload_file->keyword = $request->input('keyword');
