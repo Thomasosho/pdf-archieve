@@ -161,6 +161,7 @@ class FileController extends Controller
 
     public function download($file)
     {
+        // /app/storage/app/public
         // $doc = File::find($id);
         // //PDF file is stored under project/public/download/info.pdf
         // $file= $doc->file;
