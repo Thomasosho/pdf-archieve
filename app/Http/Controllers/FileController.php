@@ -35,9 +35,9 @@ class FileController extends Controller
     {
         if($request->has('q')){
             $searchs = File::search($request->q)
-                ->paginate(3);
+                ->orderBy('created_at','desc')->paginate(3);
         }else{
-            $searchs = File::paginate(3);
+            $searchs = File::orderBy('created_at','desc')->paginate(3);
         }
 
         return view('file', compact('searchs'));
@@ -52,9 +52,9 @@ class FileController extends Controller
 
         if($request->has('q')){
             $searchs = File::search($request->q)
-                ->paginate(7);
+            ->orderBy('created_at','desc')->paginate(7);
         }else{
-            $searchs = File::paginate(7);
+            $searchs = File::orderBy('created_at','desc')->paginate(7);
         }
 
         return view('file-index', compact('sort', 'searchs'));
@@ -78,6 +78,8 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
+        $date = Carbon::now();
+
         $file = $request->file;
 
         $request->validate([
@@ -145,7 +147,7 @@ class FileController extends Controller
         $upload_file->filesize = $file->getSize();
         $upload_file->content = $content;
         $upload_file->extension = $extension;
-        if ($request->has('date')) {
+        if ($request->input('date') != NULL) {
             $upload_file->date = $request->input('date');
         }
         else {
@@ -325,7 +327,7 @@ class FileController extends Controller
             $upload_file->filesize = $file->getSize();
             $upload_file->content = $content;
             $upload_file->extension = $extension;
-            if ($request->has('date')) {
+            if ($request->input('date') != NULL) {
                 $upload_file->date = $request->input('date');
             }
             else {
