@@ -30,7 +30,7 @@
                                                     <td>{{$item->extension}}</td>
                                                     <td>{{$item->created_at->diffForHumans()}}</td>
                                                     <td>
-                                                        <a href="/download/{{$item->orig_filename}}" class="px-2" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
+                                                        <a href="/download/{{$item->file}}" download="{{$item->file}}" class="px-2" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
                                                             <i class="fas fa-pencil-alt text-inverse mr-2"></i> Download
                                                         </a>
                                                         <a href="{{ route('file.show',$item->id)}}" class="px-2" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
