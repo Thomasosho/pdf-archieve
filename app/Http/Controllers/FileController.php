@@ -40,7 +40,7 @@ class FileController extends Controller
         return view('file', compact('searchs'));
     }
 
-    public function fil(Request $request)
+    public function fil(File $file, Request $request)
     {
         $sort = File::latest()->get()->groupBy(function($item)
         {
@@ -54,7 +54,7 @@ class FileController extends Controller
             $searchs = File::paginate(7);
         }
 
-        return view('file-index', compact('sort'));
+        return view('file-index', compact('sort', 'searchs'));
     }
 
     /**
