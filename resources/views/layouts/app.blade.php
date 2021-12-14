@@ -54,6 +54,7 @@
         .btn-primary {
             background-color: #4b5320 !important;
             border-color: #6c757d !important;
+            color: white !important;
         }
     </style>
 
