@@ -171,13 +171,15 @@
             }
                 toastr.success("{{ session('success') }}");
         @endif
-        @if(Session::has('error'))
-            toastr.options =
-            {
-            "closeButton" : true,
-            "progressBar" : true
-            }
-                toastr.error("{{ session('error') }}");
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.options =
+                {
+                "closeButton" : true,
+                "progressBar" : true
+                }
+                    toastr.error("{{$error}}");
+            @endforeach
         @endif
         @if(Session::has('info'))
             toastr.options =
