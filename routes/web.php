@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('date', [FileController::class, 'date']);
     Route::get('files', [FileController::class, 'fil']);
     Route::resource('file', FileController::class);
+    Route::get('download/{file}', [FileController::class, 'download']);
     // file actions
     Route::post('update/{id}', [FileController::class, 'update']);
     Route::get('show-file/{id}', [FileController::class, 'show']);

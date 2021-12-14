@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use App\Models\Category;
 use DB;
+use Response;
+use Illuminate\Support\Facades\Storage;
 use Smalot\PdfParser\Parser;
 use Illuminate\Http\Request;
 
@@ -149,6 +151,15 @@ class FileController extends Controller
         $upload_file->file = $fileNameToStore;
         $upload_file->save();
         return back()->with('success', 'File saved');   
+    }
+
+    public function download($file)
+    {
+        // $doc = File::find($id);
+        // //PDF file is stored under project/public/download/info.pdf
+        // $file= $doc->file;
+        // return Response::download($file);
+        return response()->download(Storage::disk('public')->path("documents".DIRECTORY_SEPARATOR.$file));
     }
 
     public function type(File $file, Request $request)

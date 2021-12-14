@@ -34,10 +34,10 @@
             color: #ffffff !important;
         }
 
-        .navbar-expand-md .navbar-nav .nav-link {
+        /* .navbar-expand-md .navbar-nav .nav-link {
             padding-left: 0 !important;
             width: max-content !important;
-        }
+        } */
     </style>
 
     <!-- toastr -->
@@ -82,12 +82,12 @@
                             @endif -->
                         @else
                         @hasrole('Admin')
-                            <li><a class="nav-link {{ (request()->is('users')) ? 'text-secondary' : 'text-white' }}" href="{{ route('users.index') }}">Manage Users</a></li>
-                            <li><a class="nav-link {{ (request()->is('roles')) ? 'text-secondary' : 'text-white' }}" href="{{ route('roles.index') }}">Manage Role</a></li>
+                            <li><a class="nav-link mx-2 btn btn-secondary {{ (request()->is('users')) ? 'btn btn-secondary-outline' : 'text-white' }}" href="{{ route('users.index') }}">Manage Users</a></li>
+                            <li><a class="nav-link mx-2 btn btn-secondary {{ (request()->is('roles')) ? 'btn btn-secondary-outline' : 'text-white' }}" href="{{ route('roles.index') }}">Manage Role</a></li>
                         @endhasrole
                         @hasrole('User')
-                            <li><a class="nav-link {{ (request()->is('files')) ? 'text-secondary' : 'text-white' }}" href="/files">Files</a></li>
-                            <li><a href="/" class="nav-link {{ (request()->is('/')) ? 'text-secondary' : 'text-white' }}">Upload</a></li>
+                            <li><a href="/" class="nav-link mx-2 btn btn-secondary {{ (request()->is('/')) ? 'btn btn-secondary-outline' : 'text-white' }}">Upload</a></li>
+                            <li><a class="nav-link mx-2 btn btn-secondary {{ (request()->is('files')) ? 'btn btn-secondary-outline' : 'text-white' }}" href="/files">Files</a></li>
                             <!-- <li><a href="/type" class="nav-link {{ (request()->is('type')) ? 'text-secondary' : 'text-white' }}">Sort by File Type</a></li>
                             <li><a href="/date" class="nav-link {{ (request()->is('date')) ? 'text-secondary' : 'text-white' }}">Sort by Date</a></li> -->
                             <form class="col-12 col-lg-auto mb-10 mb-lg-8 me-lg-10 px-2" action="/search" method="post">
