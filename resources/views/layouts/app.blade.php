@@ -39,6 +39,14 @@
             color: #4b5320 !important;
         }
 
+        .btn-secondary {
+            background-color: #4b5320 !important;
+        }
+
+        .btn-success {
+            background-color: #fdfdfd !important;
+        }
+
         .decorate {
             text-decoration: none !important;
         }

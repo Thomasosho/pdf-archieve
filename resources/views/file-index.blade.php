@@ -17,6 +17,7 @@
                                 <div class="accordion-body">
                                     <table class="table text-center">
                                         <thead>
+                                            <th>No</th>
                                             <th>Name</th>
                                             <th>File Type</th>
                                             <th>Date</th>
@@ -30,20 +31,35 @@
                                                     <td>{{$item->extension}}</td>
                                                     <td>{{$item->created_at->diffForHumans()}}</td>
                                                     <td>
-                                                        <a href="/download/{{$item->file}}" download="{{$item->file}}" class="px-2 decorate" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
-                                                            <i class="fas fa-file-download"></i> Download
-                                                        </a>
-                                                        <a href="{{ route('file.show',$item->id)}}" class="px-2 decorate" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
-                                                            <i class="fas fa-binoculars"></i> View
-                                                        </a>
-                                                        <a class="decorate" href="{{ route('file.edit',$item->id)}}" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
-                                                            <i class="fas fa-spell-check"></i> Edit
-                                                        </a>
-                                                        <form class="decorate" action="{{ route('file.destroy', $item->id)}}" style="margin-left : 18px;float:left;"  method="post" data-toggle="tooltip" data-original-title="Delete">
-                                                            {{ csrf_field() }}
-                                                            @method('DELETE')    
-                                                            <button style="border:0px;" class="fas fa-trash text-danger" type="submit"> Delete</button> 
-                                                        </form>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                Action
+                                                            </button>
+                                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                                <li>
+                                                                    <a href="/download/{{$item->file}}" download="{{$item->file}}" class="dropdown-item decorate" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
+                                                                        <i class="fas fa-file-download"></i> Download
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('file.show',$item->id)}}" class="dropdown-item decorate" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
+                                                                        <i class="fas fa-binoculars"></i> View
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item decorate" href="{{ route('file.edit',$item->id)}}" style="float:left;" data-toggle="tooltip" data-original-title="Edit">
+                                                                        <i class="fas fa-spell-check"></i> Edit
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <form class="dropdown-item decorate" action="{{ route('file.destroy', $item->id)}}"  method="post" data-toggle="tooltip" data-original-title="Delete">
+                                                                        {{ csrf_field() }}
+                                                                        @method('DELETE')    
+                                                                        <button style="border:0px;" class="fas fa-trash text-danger" type="submit"> Delete</button> 
+                                                                    </form>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             @endforeach

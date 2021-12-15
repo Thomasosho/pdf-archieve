@@ -5,6 +5,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MultiFileUploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
 
     Route::resource('category', CategoryController::class);
+
+    // multi uploads
+    Route::resource('save', MultiFileUploadController::class);
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });

@@ -32,12 +32,12 @@
                 <input type="text" class="form-control" value="{{$file->person}}" aria-label="Person Responsible" readonly>
             </div>
         </div>
-        <div class="row g-3 py-2">
+        <!-- <div class="row g-3 py-2">
             <div class="col-sm">
                 <label for="description">Description</label>
                 <input type="text" class="form-control" value="{{$file->description}}" aria-label="Description" readonly>
             </div>
-        </div>
+        </div> -->
         <br>
         <div class="row">
             <div class="col-md">

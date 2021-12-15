@@ -35,9 +35,9 @@ class FileController extends Controller
     {
         if($request->has('q')){
             $searchs = File::search($request->q)
-                ->orderBy('created_at','desc')->paginate(3);
+                ->orderBy('created_at','desc')->paginate(50);
         }else{
-            $searchs = File::orderBy('created_at','desc')->paginate(3);
+            $searchs = File::orderBy('created_at','desc')->paginate(50);
         }
 
         return view('file', compact('searchs'));
@@ -45,7 +45,8 @@ class FileController extends Controller
 
     public function fil(File $file, Request $request)
     {
-        $sort = File::latest()->get()->groupBy(function($item)
+        $pagination =File::latest()->paginate(50);
+        $sort = collect($pagination->items())->groupBy(function($item)
         {
             return $item->date;
         });
@@ -209,22 +210,15 @@ class FileController extends Controller
     {
         $q = $request->get ( 'q' );
 
-        // if($request->has('q')){
-        //     $searchs = File::search($request->q)
-        //         ->paginate(7);
-        // }else{
-        //     $searchs = File::paginate(7);
-        // }
-
-        $searchs = File::where('orig_filename', 'like', '%' . $q . '%' )
-            ->orWhere('file', 'like', '%' . $q . '%' )
-            ->orWhere('date', 'like', '%' . $q . '%' )
-            ->orWhere('person', 'like', '%' . $q . '%' )
-            ->orWhere('keyword', 'like', '%' . $q . '%' )
-            ->orWhere('extension', 'like', '%' . $q . '%' )
-            ->orWhere('description', 'like', '%' . $q . '%' )
-            ->orWhere('content', 'like', '%' . $q . '%' )
-            ->get();
+        $searchs = File::where('orig_filename', 'like', '%' . $q . '%')
+            ->orWhere('file', 'like', '%' . $q . '%')
+            ->orWhere('date', 'like', '%' . $q . '%')
+            ->orWhere('person', 'like', '%' . $q . '%')
+            ->orWhere('keyword', 'like', '%' . $q . '%')
+            ->orWhere('extension', 'like', '%' . $q . '%')
+            ->orWhere('description', 'like', '%' . $q . '%')
+            ->orWhere('content', 'like', '%' . $q . '%')
+            ->paginate(50);
 
         return view('search', compact('searchs'));
     }
