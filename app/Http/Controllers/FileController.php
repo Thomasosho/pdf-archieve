@@ -40,16 +40,22 @@ class FileController extends Controller
             $searchs = File::orderBy('created_at','desc')->paginate(50);
         }
 
-        return view('file', compact('searchs'));
+        $category = Category::all();
+
+        return view('file', compact('searchs', 'category'));
     }
 
     public function fil(File $file, Request $request)
     {
-        $pagination =File::latest()->paginate(50);
-        $sort = collect($pagination->items())->groupBy(function($item)
-        {
-            return $item->date;
-        });
+        // $pagination =File::latest()->paginate(50);
+        // $sort = collect($pagination->items())->groupBy(function($item)
+        // {
+        //     return $item->date;
+        // });
+
+        $files = File::orderBy('created_at','desc')->paginate(50);
+
+        $category = Category::all();
 
         if($request->has('q')){
             $searchs = File::search($request->q)
@@ -58,7 +64,7 @@ class FileController extends Controller
             $searchs = File::orderBy('created_at','desc')->paginate(7);
         }
 
-        return view('file-index', compact('sort', 'searchs'));
+        return view('file-index', compact('files', 'category', 'searchs'));
     }
 
     /**
@@ -140,6 +146,8 @@ class FileController extends Controller
             $path = $request->file('file')->storeAs('public/documents', $fileNameToStore);
         }
 
+        $check = Category::find($request->input('category_id'));
+
         $date = Carbon::now();
 
         $upload_file = new File;
@@ -156,7 +164,10 @@ class FileController extends Controller
         }
         $upload_file->person = auth()->user()->name;
         $upload_file->keyword = $request->input('keyword');
+        $upload_file->category_id = $request->input('category_id');
+        $upload_file->folder = $check->name;
         $upload_file->description = $request->input('description');
+        $upload_file->person = $request->input('person');
         $upload_file->file = $fileNameToStore;
         $upload_file->save();
         return back()->with('success', 'File saved');   
@@ -212,6 +223,7 @@ class FileController extends Controller
 
         $searchs = File::where('orig_filename', 'like', '%' . $q . '%')
             ->orWhere('file', 'like', '%' . $q . '%')
+            ->orWhere('folder', 'like', '%' . $q . '%')
             ->orWhere('date', 'like', '%' . $q . '%')
             ->orWhere('person', 'like', '%' . $q . '%')
             ->orWhere('keyword', 'like', '%' . $q . '%')
@@ -220,7 +232,9 @@ class FileController extends Controller
             ->orWhere('content', 'like', '%' . $q . '%')
             ->paginate(50);
 
-        return view('search', compact('searchs'));
+        $category = Category::all();
+
+        return view('search', compact('searchs', 'category'));
     }
 
     /**
@@ -231,7 +245,8 @@ class FileController extends Controller
      */
     public function show(File $file)
     {
-        return view('show', compact('file'));
+        $category = Category::all();
+        return view('show', compact('file', 'category'));
     }
 
     /**
@@ -315,6 +330,8 @@ class FileController extends Controller
             }
             $date = Carbon::now();
 
+            $check = Category::find($request->input('category_id'));
+
             $upload_file = File::find($id);
             $upload_file->orig_filename = $fileName;
             $upload_file->mime_type = $file->getMimeType();
@@ -332,6 +349,9 @@ class FileController extends Controller
             $upload_file->description = $request->input('description');
             // $upload_file->category_id = $request->input('category');
             // $upload_file->privacy = $request->input('privacy');
+            $upload_file->category_id = $request->input('category_id');
+            $upload_file->person = $request->input('person');
+            $upload_file->folder = $check->name;
             $upload_file->file = $fileNameToStore;
             $upload_file->save();
             return back()->with('success', 'File updated');
@@ -348,9 +368,12 @@ class FileController extends Controller
                 $upload_file->date = $date->toDateString();
             }
             $upload_file->account = $request->input('account');
+            $upload_file->category_id = $request->input('category_id');
+            $upload_file->folder = $check->name;
             $upload_file->person = $request->input('person');
             $upload_file->keyword = $request->input('keyword');
             $upload_file->description = $request->input('description');
+            $upload_file->person = $request->input('person');
             $upload_file->save();
             return back()->with('success', 'File updated');
         }

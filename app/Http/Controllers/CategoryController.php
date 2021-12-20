@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        // 
     }
 
     /**
@@ -42,6 +42,7 @@ class CategoryController extends Controller
 
         $category = new Category;
         $category->name = $request->input('name');
+        $category->pin = $request->input('pin');
         $category->save();
 
         return back()->with('success', 'saved successfully');
@@ -68,7 +69,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        // 
+        $category = Category::find($id);
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -80,12 +82,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
-
         $category = Category::find($id);
         $category->name = $request->input('name');
+        $category->pin = $request->input('pin');
         $category->save();
 
         return back()->with('success', 'updated successfully');

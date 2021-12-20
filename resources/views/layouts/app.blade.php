@@ -64,7 +64,23 @@
             border-color: #6c757d !important;
             color: white !important;
         }
+
+        .btn-info {
+            background-color: transparent !important;
+            border-color: transparent !important;
+            color: #4b5320 !important;
+        }
+
+        select {
+            font-family: 'FontAwesome', 'Second Font name'
+        }
+
+        input {
+            font-family: 'FontAwesome', 'Second Font name'
+        }
     </style>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
     <!-- toastr -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -78,8 +94,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="background-color:#4b5320 !important;">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img src="{{ asset('image/army.png') }}" alt="Nigerian Army" style="width:8%">
-                    {{ config('app.name', 'Army') }}
+                    <img src="{{ asset('image/army.png') }}" alt="Nigerian Army" style="width:18%">
+                    Nigerian Army
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -112,7 +128,7 @@
                             <li><a class="nav-link mx-2 btn btn-secondary {{ (request()->is('files')) ? 'btn btn-secondary-outline' : 'text-white' }}" href="/files">Archive</a></li>
                             <!-- <li><a href="/type" class="nav-link {{ (request()->is('type')) ? 'text-secondary' : 'text-white' }}">Sort by File Type</a></li>
                             <li><a href="/date" class="nav-link {{ (request()->is('date')) ? 'text-secondary' : 'text-white' }}">Sort by Date</a></li> -->
-                            <form class="col-12 col-lg-auto inline mb-10 mb-lg-8 mx-5 me-lg-10 px-2" action="/search" method="post">
+                            <form class="col-12 col-lg-auto inline mb-10 mb-lg-8 mx-5 me-lg-10 px-2" style="width: 300px; height: 40px;" action="/search" method="post">
                                 @csrf
                                 <input type="search" class="form-control form-control-dark" name="q" placeholder="Search by responsible person, class, date, keyword, description and so on..." aria-label="Search">
                                 <button class="btn btn-primary mt-1" type="submit"><i class="fa fa-search"></i></button>
@@ -147,15 +163,47 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">New Folder</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <form action="/folder" method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <label for="name">Folder name</label>
+                                        <input type="text" name="name" placeholder="Enter name" class="form-control" required>
+                                    </div>
+                                    <!-- <div class="col-sm">
+                                        <label for="pin">Lock folder</label>
+                                        <input type="number" class="form-control" placeholder="Enter 4 digit pin" name="pin" 
+                                            maxlength="4" pattern="^0[1-9]|[1-9]\d$" onkeypress="return isNumeric(event)" 
+                                            oninput="maxLengthCheck(this)">
+                                    </div> -->
+                                    <script>
+                                        function maxLengthCheck(object) {
+                                            if (object.value.length > object.maxLength)
+                                            object.value = object.value.slice(0, object.maxLength)
+                                        }
+                                            
+                                        function isNumeric (evt) {
+                                            var theEvent = evt || window.event;
+                                            var key = theEvent.keyCode || theEvent.which;
+                                            key = String.fromCharCode (key);
+                                            var regex = /[0-9]|\./;
+                                            if ( !regex.test(key) ) {
+                                            theEvent.returnValue = false;
+                                            if(theEvent.preventDefault) theEvent.preventDefault();
+                                            }
+                                        }
+                                    </script>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm my-3">
+                                        <button class="form-control btn btn-primary" type="submit">Save</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

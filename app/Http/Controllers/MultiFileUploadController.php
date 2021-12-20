@@ -105,6 +105,8 @@ class MultiFileUploadController extends Controller
                     $path = $file->storeAs('public/documents', $fileNameToStore);
                 }
 
+                $check = Category::find($request->input('category_id'));
+
                 $date = Carbon::now();
 
                 $upload_file = new File;
@@ -119,8 +121,11 @@ class MultiFileUploadController extends Controller
                 else {
                     $upload_file->date = $date->toDateString();
                 }
-                $upload_file->person = auth()->user()->name;
                 $upload_file->keyword = $request->input('keyword');
+                $upload_file->category_id = $request->input('category_id');
+                $upload_file->folder = $check->name;
+                $upload_file->description = $request->input('description');
+                $upload_file->person = $request->input('person');
                 $upload_file->file = $fileNameToStore;
                 $upload_file->save();
             }

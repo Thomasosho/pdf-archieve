@@ -2,18 +2,20 @@
 
 @section('content')
 
+<!-- Move Modal -->
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-md-8 py-3 px-5">
+                <div class="col-md-12 py-3 px-5">
                     <h2>Sample Demonstration</h2>
                     <p>Search Result(s):</p>
                 </div>
-                <div class="col-md-8 px-5">
+                <div class="col-md-12 px-5">
                     <table class="table text-center">
                         <thead>
                             <th>#Id</th>
                             <th>Name</th>
+                            <th>Folder</th>
                             <th>Date</th>
                             <th>Action(s)</th>
                         </thead>
@@ -23,6 +25,7 @@
                                     <tr>
                                         <td>{{ ++$key }}</td>
                                         <td>{{$s->orig_filename}}</td>
+                                        <td>@if($s->folder != null) {{$s->folder}} @else Uncategorized @endif</td>
                                         <td>{{$s->date}}</td>
                                         <td>
                                             <div class="dropdown">
