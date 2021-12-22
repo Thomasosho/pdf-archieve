@@ -69,7 +69,7 @@
             </div>
             <div class="col-sm-4">
                 <label for="person">Folder</label>
-                <input type="text" class="form-control" value="@if($c->pin != null) &#xf023; @endif {{$file->folder}}" aria-label="Folder" readonly>
+                <input type="text" class="form-control" value="@if($file->pin != null) &#xf023; @endif {{$file->folder}}" aria-label="Folder" readonly>
             </div>
             <div class="col-sm-4">
                 <label for="person">Created By</label>
