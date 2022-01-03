@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\File;
 use App\Models\Category;
+use App\Models\Unit;
 use DB;
 use Response;
 use Illuminate\Support\Facades\Storage;
@@ -107,6 +108,8 @@ class MultiFileUploadController extends Controller
 
                 $check = Category::find($request->input('category_id'));
 
+                $unit = Unit::find($request->input('unit_id'));
+
                 $date = Carbon::now();
 
                 $upload_file = new File;
@@ -115,21 +118,22 @@ class MultiFileUploadController extends Controller
                 $upload_file->filesize = $file->getSize();
                 $upload_file->content = $content;
                 $upload_file->extension = $extension;
-                if ($request->input('date') != NULL) {
-                    $upload_file->date = $request->input('date');
+                if ($request->input('opendate') != NULL) {
+                    $upload_file->opendate = $request->input('opendate');
                 }
                 else {
-                    $upload_file->date = $date->toDateString();
+                    $upload_file->opendate = $date->toDateString();
                 }
-                $upload_file->keyword = $request->input('keyword');
                 $upload_file->category_id = $request->input('category_id');
                 $upload_file->folder = $check->name;
-                $upload_file->description = $request->input('description');
-                $upload_file->person = $request->input('person');
+                $upload_file->unit_id = $request->input('unit_id');
+                $upload_file->unit = $unit->name;
                 $upload_file->file = $fileNameToStore;
+                $upload_file->reference = $request->input('reference');
+                $upload_file->closedate = $request->input('closedate');
                 $upload_file->save();
             }
-            return back()->with('success', 'Files saved');
+            return back()->with('success', 'File(s) Uploaded');
         }
     }
 

@@ -22,23 +22,32 @@
             @method('PATCH')
             <div class="row g-3 py-2">
                 <div class="col-sm">
-                    <label for="class">Date</label>
-                    <input type="date" class="form-control" name="date" value="{{$file->date}}" aria-label="Date">
+                    <label for="class">Open Date</label>
+                    <input type="date" class="form-control" name="opendate" value="{{$file->opendate}}" aria-label="Open Date">
                 </div>
                 <div class="col-sm">
-                    <label for="class">Keyword</label>
-                    <input type="text" class="form-control" name="keyword" value="{{$file->keyword}}" aria-label="keywords seperated by commas">
+                    <label for="class">Close Date</label>
+                    <input type="date" class="form-control" name="closedate" value="{{$file->closedate}}" aria-label="Close Date">
                 </div>
             </div>
             <div class="row g-3 py-2">
                 <div class="col-sm">
-                    <label for="class">Description</label>
-                    <input type="text" class="form-control" name="description" value="{{$file->description}}" aria-label="Description">
+                    <label for="class">File Reference</label>
+                    <input type="text" class="form-control" name="reference" value="{{$file->reference}}" aria-label="Reference">
                 </div>
             </div>
+            <label for="unit_id">Unit Name/Formation</label>
             <div class="input-group mb-3">
-                <input type="file" name="file" accept=".doc,.docx,.pdf,.ppt,.pptx,.ods,.odt,.odp,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="form-control" id="inputGroupFile02">
-                <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                <select name="unit_id" class="form-control" searchable="Search here...">
+                    <option value="{{$file->unit_id}}" selected>{{$file->unit}}</option>
+                    @foreach($unit as $u)
+                        <option value="{{$u->id}}">&#xf07c; {{$u->name}}</option>
+                    @endforeach
+                </select>
+                <button class="input-group-text" type="button" data-bs-toggle="modal" data-bs-target="#unitModal">
+                    <i class="fas fa-folder-plus px-2"></i> 
+                    Create Unit/Formation
+                </button>
             </div>
             <button class="form-control" type="submit">Update</button>
         </form>

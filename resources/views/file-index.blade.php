@@ -10,9 +10,12 @@
                         <thead>
                             <th>No</th>
                             <th>Name</th>
-                            <th>Folder</th>
+                            <th>File Volume</th>
+                            <th>Unit/Formation</th>
+                            <th>File Reference</th>
                             <th>File Type</th>
-                            <th>Date</th>
+                            <th>Open Date</th>
+                            <th>Close Date</th>
                             <th>Action(s)</th>
                         </thead>
                         <tbody>
@@ -31,9 +34,9 @@
                                                                         @method('PATCH')
                                                                         <div class="row">
                                                                             <div class="col-sm">
-                                                                                <label for="name">Select Folder</label>
+                                                                                <label for="name">Select File Volume</label>
                                                                                 <select name="category_id" class="form-control" searchable="Search here..">
-                                                                                    <option value="" disabled selected>Choose folder</option>
+                                                                                    <option value="" disabled selected>Choose Volume</option>
                                                                                         @foreach($category as $c)
                                                                                             <option value="{{$c->id}}">&#xf07c; {{$c->name}} @if($c->pin != null) &#xf023; @endif</option>
                                                                                         @endforeach
@@ -54,8 +57,11 @@
                                     <td>{{ ++$key }}</td>
                                     <td>{{$s->orig_filename}}</td>
                                     <td>@if($s->folder != null) {{$s->folder}} @else Uncategorized @endif</td>
+                                    <td>{{$s->unit}}</td>
+                                    <td>{{$s->reference}}</td>
                                     <td>{{$s->extension}}</td>
-                                    <td>{{$s->created_at->diffForHumans()}}</td>
+                                    <td>{{date('d-m-y', strtotime($s->opendate))}}</td>
+                                    <td>{{date('d-m-y', strtotime($s->closedate))}}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

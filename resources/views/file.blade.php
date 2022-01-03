@@ -13,22 +13,40 @@
                         {{ csrf_field() }}
                         <div class="input-group mb-3">
                             <select name="category_id" class="form-control" searchable="Search here..">
-                                <option value="" disabled selected>Choose folder</option>
+                                <option value="" disabled selected>Select File Volume</option>
                                 @foreach($category as $c)
                                     <option value="{{$c->id}}">&#xf07c; {{$c->name}} @if($c->pin != null) &#xf023; @endif</option>
                                 @endforeach
                             </select>
-                            <button class="input-group-text" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-folder-plus px-2"></i> Create Folder</button>
+                            <button class="input-group-text" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="fas fa-folder-plus px-2"></i> 
+                                Create File Volume
+                            </button>
+                        </div>
+                        <div class="input-group mb-3">
+                            <select name="unit_id" class="form-control" searchable="Search here...">
+                                <option value="" disabled selected>Unit Name/Formation</option>
+                                @foreach($unit as $u)
+                                    <option value="{{$u->id}}">&#xf07c; {{$u->name}}</option>
+                                @endforeach
+                            </select>
+                            <button class="input-group-text" type="button" data-bs-toggle="modal" data-bs-target="#unitModal">
+                                <i class="fas fa-folder-plus px-2"></i> 
+                                Create Unit/Formation
+                            </button>
                         </div>
                         <div class="row g-3 py-2">
                             <div class="col-sm">
-                                <input type="date" class="form-control" name="date" placeholder="Date" aria-label="Date">
+                                <label for="unit name/formation">File Reference e.g NA/220/40/G(TRG)</label>
+                                <input type="text" class="form-control" name="reference" placeholder="NA/220/40/G(TRG)" aria-label="reference">
+                            </div>
+                        </div>
+                        <div class="row g-3 py-2">
+                            <div class="col-sm">
+                                <input type="date" class="form-control" name="opendate" placeholder="Open Date" aria-label="Open Date">
                             </div>
                             <div class="col-sm">
-                                <input type="text" class="form-control" name="keyword" placeholder="Keywords" aria-label="keywords">
-                            </div>
-                            <div class="col-sm">
-                                <input type="text" class="form-control" name="person" placeholder="Created by" aria-label="created by">
+                                <input type="date" class="form-control" name="closedate" placeholder="Close Date" aria-label="Close Date">
                             </div>
                         </div>
                         <div class="input-group mb-3">
