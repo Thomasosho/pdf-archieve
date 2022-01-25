@@ -42,7 +42,6 @@ class CategoryController extends Controller
 
         $category = new Category;
         $category->name = $request->input('name');
-        $category->pin = $request->input('pin');
         $category->save();
 
         return back()->with('success', 'saved successfully');
@@ -84,7 +83,6 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         $category->name = $request->input('name');
-        $category->pin = $request->input('pin');
         $category->save();
 
         return back()->with('success', 'updated successfully');
