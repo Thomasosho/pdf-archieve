@@ -11,12 +11,12 @@
 
     <!-- Scripts -->
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="{{asset('js/bootstrap.bundle.min.js')}}" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link href="{{asset('css/font.css/css?family=Nunito')}}" rel="stylesheet">
+    <link href="{{asset('css/all.min.css')}}" rel="stylesheet">
 
     <!-- Icon -->
     <link rel="icon" type="image/png" href="{{asset('image/army.png')}}" sizes="16x16">
@@ -24,7 +24,7 @@
     <link rel="icon" type="image/png" href="{{asset('image/army.png')}}" sizes="96x96">
 
     <!-- Styles -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <style>
         .navbar-light .navbar-brand {
@@ -78,18 +78,28 @@
         input {
             font-family: 'FontAwesome', 'Second Font name'
         }
+
+        .page-item.active .page-link {
+            background-color: #4b5320;
+            border-color: #4b5320;
+        }
     </style>
 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" />
+
+    <!-- Date -->
+    <script src="{{ asset('js/jquery-1.11.1.min.js') }}" defer></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}">
 
     <!-- toastr -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
     <link rel="stylesheet" type="text/css" 
-        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+        href="{{ asset('css/toastr.min.css') }}">
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
     <!-- end toast -->
 </head>
-<body>
+<body style="background:#4b53202e !important;">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="background-color:#4b5320 !important;">
             <div class="container">
@@ -131,7 +141,11 @@
                             <form class="col-12 col-lg-auto inline mb-10 mb-lg-8 mx-5 me-lg-10 px-2" style="width: 300px; height: 40px;" action="/search" method="post">
                                 @csrf
                                 <input type="search" class="form-control form-control-dark" name="q" placeholder="Search for files" aria-label="Search">
+<<<<<<< HEAD
+                                <button class="btn btn-primary mt-1" type="submit"><i class="fas fa-search"></i></button>
+=======
                                 <button class="btn btn-primary mt-1" type="submit"><i class="fa fa-search"></i></button>
+>>>>>>> 60a26330a6035f0edc0810be43d6a1eeb4cbf668
                             </form>
                         @endhasrole
                             <li class="nav-item dropdown">

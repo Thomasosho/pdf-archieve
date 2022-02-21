@@ -225,7 +225,7 @@ class FileController extends Controller
 
     public function search(Request $request)
     {
-        $q = $request->get ( 'q' );
+        $q = $request->get('q');
 
         $searchs = File::where('orig_filename', 'like', '%' . $q . '%')
             ->orWhere('file', 'like', '%' . $q . '%')
@@ -240,7 +240,7 @@ class FileController extends Controller
 
         $category = Category::all();
 
-        return view('search', compact('searchs', 'category'));
+        return view('search', compact('searchs', 'category', 'q'));
     }
 
     /**

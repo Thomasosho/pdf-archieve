@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-12 py-3 px-5">
                     <h2>Sample Demonstration</h2>
-                    <p>Search Result(s):</p>
+                    <p>Search Result(s) for: <i style="font-weight: bolder !important;">{{$q}}</i></p>
                 </div>
                 <div class="col-md-12 px-5">
                     <table class="table text-center">
@@ -33,8 +33,13 @@
                                         <td>{{$s->unit}}</td>
                                         <td>{{$s->reference}}</td>
                                         <td>{{$s->extension}}</td>
+<<<<<<< HEAD
+                                        <td>{{date('d-m-Y', strtotime($s->opendate))}}</td>
+                                        <td>{{date('d-m-Y', strtotime($s->closedate))}}</td>
+=======
                                         <td>{{date('d-m-y', strtotime($s->opendate))}}</td>
                                         <td>{{date('d-m-y', strtotime($s->closedate))}}</td>
+>>>>>>> 60a26330a6035f0edc0810be43d6a1eeb4cbf668
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
