@@ -13,10 +13,14 @@
                 <div class="col-md-12 px-5">
                     <table class="table text-center">
                         <thead>
-                            <th>#Id</th>
+                            <th>No</th>
                             <th>Name</th>
-                            <th>Folder</th>
-                            <th>Date</th>
+                            <th>File Volume</th>
+                            <th>Unit/Formation</th>
+                            <th>File Reference</th>
+                            <th>File Type</th>
+                            <th>Open Date</th>
+                            <th>Close Date</th>
                             <th>Action(s)</th>
                         </thead>
                         <tbody>
@@ -26,7 +30,11 @@
                                         <td>{{ ++$key }}</td>
                                         <td>{{$s->orig_filename}}</td>
                                         <td>@if($s->folder != null) {{$s->folder}} @else Uncategorized @endif</td>
-                                        <td>{{$s->date}}</td>
+                                        <td>{{$s->unit}}</td>
+                                        <td>{{$s->reference}}</td>
+                                        <td>{{$s->extension}}</td>
+                                        <td>{{date('d-m-y', strtotime($s->opendate))}}</td>
+                                        <td>{{date('d-m-y', strtotime($s->closedate))}}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

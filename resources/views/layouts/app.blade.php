@@ -130,7 +130,7 @@
                             <li><a href="/date" class="nav-link {{ (request()->is('date')) ? 'text-secondary' : 'text-white' }}">Sort by Date</a></li> -->
                             <form class="col-12 col-lg-auto inline mb-10 mb-lg-8 mx-5 me-lg-10 px-2" style="width: 300px; height: 40px;" action="/search" method="post">
                                 @csrf
-                                <input type="search" class="form-control form-control-dark" name="q" placeholder="Search by responsible person, class, date, keyword, description and so on..." aria-label="Search">
+                                <input type="search" class="form-control form-control-dark" name="q" placeholder="Search for files" aria-label="Search">
                                 <button class="btn btn-primary mt-1" type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         @endhasrole
@@ -158,12 +158,12 @@
         </nav>
 
         <main class="py-4">
-            <!-- Modal -->
+            <!--Category Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">New Folder</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">New File Volume</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -171,8 +171,8 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm">
-                                        <label for="name">Folder name</label>
-                                        <input type="text" name="name" placeholder="Enter name" class="form-control" required>
+                                        <label for="name">File Volume e.g Vol 21</label>
+                                        <input type="text" name="name" placeholder="Vol 21" class="form-control" required>
                                     </div>
                                     <!-- <div class="col-sm">
                                         <label for="pin">Lock folder</label>
@@ -180,6 +180,51 @@
                                             maxlength="4" pattern="^0[1-9]|[1-9]\d$" onkeypress="return isNumeric(event)" 
                                             oninput="maxLengthCheck(this)">
                                     </div> -->
+                                    <script>
+                                        function maxLengthCheck(object) {
+                                            if (object.value.length > object.maxLength)
+                                            object.value = object.value.slice(0, object.maxLength)
+                                        }
+                                            
+                                        function isNumeric (evt) {
+                                            var theEvent = evt || window.event;
+                                            var key = theEvent.keyCode || theEvent.which;
+                                            key = String.fromCharCode (key);
+                                            var regex = /[0-9]|\./;
+                                            if ( !regex.test(key) ) {
+                                            theEvent.returnValue = false;
+                                            if(theEvent.preventDefault) theEvent.preventDefault();
+                                            }
+                                        }
+                                    </script>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm my-3">
+                                        <button class="form-control btn btn-primary" type="submit">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Unit Modal -->
+            <div class="modal fade" id="unitModal" tabindex="-1" aria-labelledby="unitModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="unitModalLabel">New Unit/Formation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/unit" method="post">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <label for="name">Unit/Formation name e.g DAOPS1</label>
+                                        <input type="text" name="name" placeholder="DAOPS1" class="form-control" required>
+                                    </div>
                                     <script>
                                         function maxLengthCheck(object) {
                                             if (object.value.length > object.maxLength)

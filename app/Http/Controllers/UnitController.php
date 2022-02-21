@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class UnitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::orderBy('created_at','desc')->paginate(10);
-        return view ('category.index', compact('category'));
+        $unit = Unit::orderBy('created_at','desc')->paginate(10);
+        return view ('unit.index', compact('unit'));
     }
 
     /**
@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        // 
+        //
     }
 
     /**
@@ -40,9 +40,9 @@ class CategoryController extends Controller
             'name' => 'required',
         ]);
 
-        $category = new Category;
-        $category->name = $request->input('name');
-        $category->save();
+        $unit = new Unit;
+        $unit->name = $request->input('name');
+        $unit->save();
 
         return back()->with('success', 'saved successfully');
     }
@@ -50,40 +50,40 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Unit $units, $id)
     {
-        // display all files in said category
-        $category = Category::find($id);
-        return view('category.show', compact('category'));
+        // display all files in said unit
+        $unit = Unit::find($id);
+        return view('unit.show', compact('unit'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Unit $units, $id)
     {
-        $category = Category::find($id);
-        return view('category.edit', compact('category'));
+        $unit = Unit::find($id);
+        return view('unit.edit', compact('unit'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Unit $units, $id)
     {
-        $category = Category::find($id);
-        $category->name = $request->input('name');
-        $category->save();
+        $unit = Unit::find($id);
+        $unit->name = $request->input('name');
+        $unit->save();
 
         return back()->with('success', 'updated successfully');
     }
@@ -91,12 +91,12 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Unit $unit)
     {
-        $category->delete();
+        $unit->delete();
         return back()->with('success', 'deleted successfully');
     }
 }

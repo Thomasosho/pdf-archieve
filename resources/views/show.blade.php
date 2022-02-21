@@ -13,7 +13,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Move to Folder</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Move to Volume</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -22,9 +22,9 @@
                                 @method('PATCH')
                                 <div class="row">
                                     <div class="col-sm">
-                                        <label for="name">Select Folder</label>
+                                        <label for="name">Select File Volume</label>
                                         <select name="category_id" class="form-control" searchable="Search here..">
-                                            <option value="" disabled selected>Choose folder</option>
+                                            <option value="" disabled selected>Choose volume</option>
                                                 @foreach($category as $c)
                                                     <option value="{{$c->id}}">&#xf07c; {{$c->name}} @if($c->pin != null) &#xf023; @endif</option>
                                                 @endforeach
@@ -64,24 +64,29 @@
         <h3>{{$file->file}}</h3>
         <div class="row g-3 py-2">
             <div class="col-sm">
-                <label for="date">Date</label>
-                <input type="text" class="form-control" value="{{$file->date}}" aria-label="Date" readonly>
+                <label for="date">Open Date</label>
+                <input type="text" class="form-control" value="{{$file->opendate}}" aria-label="Open Date" readonly>
             </div>
+            <div class="col-sm">
+                <label for="date">Close Date</label>
+                <input type="text" class="form-control" value="{{$file->closedate}}" aria-label="Close Date" readonly>
+            </div>
+            
+        </div>
+        <div class="row g-3 py-2">
             <div class="col-sm-4">
-                <label for="person">Folder</label>
+                <label for="person">File Volume</label>
                 <input type="text" class="form-control" value="@if($file->pin != null) &#xf023; @endif {{$file->folder}}" aria-label="Folder" readonly>
             </div>
             <div class="col-sm-4">
-                <label for="person">Created By</label>
-                <input type="text" class="form-control" value="{{$file->person}}" aria-label="Created By" readonly>
+                <label for="person">File Reference</label>
+                <input type="text" class="form-control" value="{{$file->reference}}" aria-label="File Reference" readonly>
+            </div>
+            <div class="col-sm-4">
+                <label for="person">Unit/Formation</label>
+                <input type="text" class="form-control" value="{{$file->unit}}" aria-label="Unit/Formation" readonly>
             </div>
         </div>
-        <!-- <div class="row g-3 py-2">
-            <div class="col-sm">
-                <label for="description">Description</label>
-                <input type="text" class="form-control" value="{{$file->description}}" aria-label="Description" readonly>
-            </div>
-        </div> -->
         <br>
         <div class="row">
             <div class="col-md">

@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MultiFileUploadController;
 use App\Http\Controllers\MoveController;
+use App\Http\Controllers\UnitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
 
     Route::resource('folder', CategoryController::class);
+
+    Route::resource('unit', UnitController::class);
 
     Route::resource('move', MoveController::class);
 
