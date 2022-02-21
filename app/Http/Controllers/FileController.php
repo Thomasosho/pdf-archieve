@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\File;
 use App\Models\Category;
+use App\Models\Unit;
 use DB;
 use Response;
 use Illuminate\Support\Facades\Storage;
@@ -42,7 +43,9 @@ class FileController extends Controller
 
         $category = Category::all();
 
-        return view('file', compact('searchs', 'category'));
+        $unit = Unit::all();
+
+        return view('file', compact('searchs', 'category', 'unit'));
     }
 
     public function fil(File $file, Request $request)
@@ -57,6 +60,8 @@ class FileController extends Controller
 
         $category = Category::all();
 
+        $unit = Unit::all();
+
         if($request->has('q')){
             $searchs = File::search($request->q)
             ->orderBy('created_at','desc')->paginate(7);
@@ -64,7 +69,7 @@ class FileController extends Controller
             $searchs = File::orderBy('created_at','desc')->paginate(7);
         }
 
-        return view('file-index', compact('files', 'category', 'searchs'));
+        return view('file-index', compact('files', 'category', 'unit', 'searchs'));
     }
 
     /**
@@ -148,6 +153,8 @@ class FileController extends Controller
 
         $check = Category::find($request->input('category_id'));
 
+        $unit = Unit::find($request->input('unit_id'));
+
         $date = Carbon::now();
 
         $upload_file = new File;
@@ -156,21 +163,20 @@ class FileController extends Controller
         $upload_file->filesize = $file->getSize();
         $upload_file->content = $content;
         $upload_file->extension = $extension;
-        if ($request->input('date') != NULL) {
-            $upload_file->date = $request->input('date');
+        if ($request->input('opendate') != NULL) {
+            $upload_file->opendate = $request->input('opendate');
         }
         else {
-            $upload_file->date = $date->toDateString();
+            $upload_file->opendate = $date->toDateString();
         }
-        $upload_file->person = auth()->user()->name;
-        $upload_file->keyword = $request->input('keyword');
         $upload_file->category_id = $request->input('category_id');
         $upload_file->folder = $check->name;
-        $upload_file->description = $request->input('description');
-        $upload_file->person = $request->input('person');
+        $upload_file->unit_id = $request->input('unit_id');
+        $upload_file->unit = $unit->name;
         $upload_file->file = $fileNameToStore;
+        $upload_file->closedate = $request->input('closedate');
         $upload_file->save();
-        return back()->with('success', 'File saved');   
+        return back()->with('success', 'File(s) Uploaded');   
     }
 
     public function download($file)
@@ -219,22 +225,22 @@ class FileController extends Controller
 
     public function search(Request $request)
     {
-        $q = $request->get ( 'q' );
+        $q = $request->get('q');
 
         $searchs = File::where('orig_filename', 'like', '%' . $q . '%')
             ->orWhere('file', 'like', '%' . $q . '%')
             ->orWhere('folder', 'like', '%' . $q . '%')
-            ->orWhere('date', 'like', '%' . $q . '%')
-            ->orWhere('person', 'like', '%' . $q . '%')
-            ->orWhere('keyword', 'like', '%' . $q . '%')
+            ->orWhere('opendate', 'like', '%' . $q . '%')
+            ->orWhere('closedate', 'like', '%' . $q . '%')
+            ->orWhere('reference', 'like', '%' . $q . '%')
             ->orWhere('extension', 'like', '%' . $q . '%')
-            ->orWhere('description', 'like', '%' . $q . '%')
+            ->orWhere('unit', 'like', '%' . $q . '%')
             ->orWhere('content', 'like', '%' . $q . '%')
             ->paginate(50);
 
         $category = Category::all();
 
-        return view('search', compact('searchs', 'category'));
+        return view('search', compact('searchs', 'category', 'q'));
     }
 
     /**
@@ -257,7 +263,8 @@ class FileController extends Controller
      */
     public function edit(File $file)
     {
-        return view('edit', compact('file'));
+        $unit = Unit::all();
+        return view('edit', compact('file', 'unit'));
     }
 
     /**
@@ -328,9 +335,12 @@ class FileController extends Controller
                 // Upload Image
                 $path = $request->file('file')->storeAs('public/documents', $fileNameToStore);
             }
+    
             $date = Carbon::now();
 
             $check = Category::find($request->input('category_id'));
+
+            $unit = Unit::find($request->input('unit_id'));
 
             $upload_file = File::find($id);
             $upload_file->orig_filename = $fileName;
@@ -338,43 +348,44 @@ class FileController extends Controller
             $upload_file->filesize = $file->getSize();
             $upload_file->content = $content;
             $upload_file->extension = $extension;
-            if ($request->input('date') != NULL) {
-                $upload_file->date = $request->input('date');
+            if ($request->input('opendate') != NULL) {
+                $upload_file->opendate = $request->input('opendate');
             }
             else {
-                $upload_file->date = $date->toDateString();
+                $upload_file->opendate = $date->toDateString();
             }
-            $upload_file->person = auth()->user()->name;
-            $upload_file->keyword = $request->input('keyword');
-            $upload_file->description = $request->input('description');
-            // $upload_file->category_id = $request->input('category');
-            // $upload_file->privacy = $request->input('privacy');
-            $upload_file->category_id = $request->input('category_id');
-            $upload_file->person = $request->input('person');
-            $upload_file->folder = $check->name;
+            $check = Category::find($request->input('category_id'));
+
+            $unit = Unit::find($request->input('unit_id'));
+
+            // $upload_file->category_id = $request->input('category_id');
+            // $upload_file->folder = $check->name;
+            $upload_file->unit_id = $request->input('unit_id');
+            $upload_file->unit = $unit->name;
             $upload_file->file = $fileNameToStore;
-            $upload_file->save();
+            $upload_file->reference = $request->input('reference');
+            $upload_file->closedate = $request->input('closedate');
             return back()->with('success', 'File updated');
 
         }
         else {
+            $check = Category::find($request->input('category_id'));
+            $unit = Unit::find($request->input('unit_id'));
             $date = Carbon::now();
             $upload_file = File::find($id);
             $upload_file->class = $request->input('class');
-            if ($request->has('date')) {
-                $upload_file->date = $request->input('date');
+            if ($request->has('opendate')) {
+                $upload_file->opendate = $request->input('opendate');
             }
             else {
-                $upload_file->date = $date->toDateString();
+                $upload_file->opendate = $date->toDateString();
             }
-            $upload_file->account = $request->input('account');
-            $upload_file->category_id = $request->input('category_id');
-            $upload_file->folder = $check->name;
-            $upload_file->person = $request->input('person');
-            $upload_file->keyword = $request->input('keyword');
-            $upload_file->description = $request->input('description');
-            $upload_file->person = $request->input('person');
-            $upload_file->save();
+            // $upload_file->category_id = $request->input('category_id');
+            // $upload_file->folder = $check->name;
+            $upload_file->unit_id = $request->input('unit_id');
+            $upload_file->unit = $unit->name;
+            $upload_file->reference = $request->input('reference');
+            $upload_file->closedate = $request->input('closedate');
             return back()->with('success', 'File updated');
         }
     }
