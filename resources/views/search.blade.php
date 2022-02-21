@@ -33,8 +33,13 @@
                                         <td>{{$s->unit}}</td>
                                         <td>{{$s->reference}}</td>
                                         <td>{{$s->extension}}</td>
+<<<<<<< HEAD
                                         <td>{{date('d-m-Y', strtotime($s->opendate))}}</td>
                                         <td>{{date('d-m-Y', strtotime($s->closedate))}}</td>
+=======
+                                        <td>{{date('d-m-y', strtotime($s->opendate))}}</td>
+                                        <td>{{date('d-m-y', strtotime($s->closedate))}}</td>
+>>>>>>> 60a26330a6035f0edc0810be43d6a1eeb4cbf668
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

@@ -22,6 +22,7 @@
                             @foreach($files as $key => $s )
                             <!-- Move Modal -->
                             <div class="modal fade" id="moveModal" tabindex="-1" aria-labelledby="moveModalLabel" aria-hidden="true">
+<<<<<<< HEAD
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -41,6 +42,38 @@
                                                                     <option value="{{$c->id}}">&#xf07c; {{$c->name}} @if($c->pin != null) &#xf023; @endif</option>
                                                                 @endforeach
                                                         </select>
+=======
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Move to Folder {{$s->id}}</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="{{ route('move.update', $s->id) }}" method="post">
+                                                                        {{ csrf_field() }}
+                                                                        @method('PATCH')
+                                                                        <div class="row">
+                                                                            <div class="col-sm">
+                                                                                <label for="name">Select File Volume</label>
+                                                                                <select name="category_id" class="form-control" searchable="Search here..">
+                                                                                    <option value="" disabled selected>Choose Volume</option>
+                                                                                        @foreach($category as $c)
+                                                                                            <option value="{{$c->id}}">&#xf07c; {{$c->name}} @if($c->pin != null) &#xf023; @endif</option>
+                                                                                        @endforeach
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-sm my-3">
+                                                                                <button class="form-control btn btn-primary" type="submit">Move</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+>>>>>>> 60a26330a6035f0edc0810be43d6a1eeb4cbf668
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -60,8 +93,13 @@
                                     <td>{{$s->unit}}</td>
                                     <td>{{$s->reference}}</td>
                                     <td>{{$s->extension}}</td>
+<<<<<<< HEAD
                                     <td>{{date('d-m-Y', strtotime($s->opendate))}}</td>
                                     <td>{{date('d-m-Y', strtotime($s->closedate))}}</td>
+=======
+                                    <td>{{date('d-m-y', strtotime($s->opendate))}}</td>
+                                    <td>{{date('d-m-y', strtotime($s->closedate))}}</td>
+>>>>>>> 60a26330a6035f0edc0810be43d6a1eeb4cbf668
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

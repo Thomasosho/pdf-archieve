@@ -141,7 +141,11 @@
                             <form class="col-12 col-lg-auto inline mb-10 mb-lg-8 mx-5 me-lg-10 px-2" style="width: 300px; height: 40px;" action="/search" method="post">
                                 @csrf
                                 <input type="search" class="form-control form-control-dark" name="q" placeholder="Search for files" aria-label="Search">
+<<<<<<< HEAD
                                 <button class="btn btn-primary mt-1" type="submit"><i class="fas fa-search"></i></button>
+=======
+                                <button class="btn btn-primary mt-1" type="submit"><i class="fa fa-search"></i></button>
+>>>>>>> 60a26330a6035f0edc0810be43d6a1eeb4cbf668
                             </form>
                         @endhasrole
                             <li class="nav-item dropdown">
