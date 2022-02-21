@@ -9,9 +9,10 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link href="{{asset('css/bootstrap2.min.css')}}" rel="stylesheet">
     <!-- Scripts -->
     <!-- JavaScript Bundle with Popper -->
-    <script src="{{asset('js/bootstrap.bundle.min.js')}}" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="{{asset('js/bootstrap.bundle.min.js')}}" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -24,7 +25,7 @@
     <link rel="icon" type="image/png" href="{{asset('image/army.png')}}" sizes="96x96">
 
     <!-- Styles -->
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" crossorigin="anonymous">
 
     <style>
         .navbar-light .navbar-brand {
@@ -141,11 +142,8 @@
                             <form class="col-12 col-lg-auto inline mb-10 mb-lg-8 mx-5 me-lg-10 px-2" style="width: 300px; height: 40px;" action="/search" method="post">
                                 @csrf
                                 <input type="search" class="form-control form-control-dark" name="q" placeholder="Search for files" aria-label="Search">
-<<<<<<< HEAD
                                 <button class="btn btn-primary mt-1" type="submit"><i class="fas fa-search"></i></button>
-=======
-                                <button class="btn btn-primary mt-1" type="submit"><i class="fa fa-search"></i></button>
->>>>>>> 60a26330a6035f0edc0810be43d6a1eeb4cbf668
+
                             </form>
                         @endhasrole
                             <li class="nav-item dropdown">

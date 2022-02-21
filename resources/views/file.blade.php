@@ -43,17 +43,10 @@
                         </div>
                         <div class="row g-3 py-2">
                             <div class="col-sm">
-<<<<<<< HEAD
                                 <input type="text" id="datepicker" placeholder="dd-mm-yyyy" class="form-control" name="opendate" placeholder="Open Date" aria-label="Open Date">
                             </div>
                             <div class="col-sm">
                                 <input type="text" id="datepickers" placeholder="dd-mm-yyyy" class="form-control" name="closedate" placeholder="Close Date" aria-label="Close Date">
-=======
-                                <input type="date" class="form-control" name="opendate" placeholder="Open Date" aria-label="Open Date">
-                            </div>
-                            <div class="col-sm">
-                                <input type="date" class="form-control" name="closedate" placeholder="Close Date" aria-label="Close Date">
->>>>>>> 60a26330a6035f0edc0810be43d6a1eeb4cbf668
                             </div>
                         </div>
                         <div class="input-group mb-3">
